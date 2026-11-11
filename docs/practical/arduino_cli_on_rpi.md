@@ -6,6 +6,7 @@ tags:
 - raspberry-pi
 - hardware
 - embedded
+author: viktor
 ---
 
 # Arduino (Nano) from Raspberry Pi terminal — cheat sheet

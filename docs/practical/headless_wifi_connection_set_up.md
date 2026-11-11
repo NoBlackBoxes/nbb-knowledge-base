@@ -7,6 +7,7 @@ tags:
 - setup
 - headless
 - cloud-init
+author: viktor
 ---
 # Headless Wi-Fi Setup for Raspberry Pi
 

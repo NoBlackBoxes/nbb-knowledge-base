@@ -3,6 +3,7 @@ title: Digital signal processing
 tags:
   - technical
   - signal-processing
+author: viktor
 ---
 
 # Digital Sampling, Bit Depth, ADCs and Data Size

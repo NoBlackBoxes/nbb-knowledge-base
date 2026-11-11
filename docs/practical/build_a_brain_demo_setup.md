@@ -5,6 +5,7 @@ tags:
 - course
 - nbb
 - raspberry-pi
+author: viktor
 ---
 
 # Build a brain demo setup (fresh card)

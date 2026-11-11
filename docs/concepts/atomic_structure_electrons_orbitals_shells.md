@@ -5,6 +5,7 @@ tags:
 - physics
 - chemistry
 - reference
+author: viktor
 ---
 
 # Atomic Structure — Electrons, Orbitals, Shells and the Periodic Table

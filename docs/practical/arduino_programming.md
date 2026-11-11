@@ -5,6 +5,7 @@ tags:
 - arduino
 - programming
 - hardware
+author: viktor
 ---
 
 # Arduino Programming Cheat Sheet
@@ -237,4 +238,3 @@ void loop() {
   delay(500);
 }
 ```
-

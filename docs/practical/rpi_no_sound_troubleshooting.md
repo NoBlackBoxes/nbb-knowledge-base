@@ -6,6 +6,7 @@ tags:
 - raspberry-pi
 - audio
 - troubleshooting
+author: viktor
 ---
 
 # Raspberry Pi MAX98357A I²S — No Sound

@@ -9,6 +9,10 @@ site_url = "https://noblackboxes.github.io/nbb-knowledge-base/"
 repo_url = "https://github.com/NoBlackBoxes/nbb-knowledge-base"
 repo_name = "NoBlackBoxes/nbb-knowledge-base"
 
+[project.extra.authors.viktor]
+name = "Viktor"
+url = "https://viktorpm.github.io/"
+
 # MathJax renders the LaTeX in the notes; readers need an internet connection.
 extra_javascript = ["https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"]
 
@@ -18,7 +22,6 @@ extra_javascript = ["https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"]
 nav = [
   { "Home" = "index.md" },
   { "Concepts" = [
-    { "Overview" = "concepts/index.md" },
     { "AI Processing Units" = "concepts/ai_processing_units.md" },
     { "Atomic Structure" = "concepts/atomic_structure_electrons_orbitals_shells.md" },
     { "Buck and Boost Converters" = "concepts/buck_converter.md" },
@@ -27,7 +30,6 @@ nav = [
     { "Pulse Width Modulation" = "concepts/pwm.md" },
   ] },
   { "Practicals" = [
-    { "Overview" = "practical/index.md" },
     { "Arduino CLI on Raspberry Pi" = "practical/arduino_cli_on_rpi.md" },
     { "Arduino Programming" = "practical/arduino_programming.md" },
     { "Build a Brain Demo Setup" = "practical/build_a_brain_demo_setup.md" },
@@ -44,6 +46,7 @@ nav = [
 [project.theme]
 language = "en"
 logo = "assets/logo.png"
+custom_dir = "overrides"
 features = [
   "announce.dismiss",
   "content.code.annotate",

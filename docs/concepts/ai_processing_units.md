@@ -6,6 +6,7 @@ tags:
   - tpu
   - npu
   - data-processing
+author: viktor
 ---
 # AI Processing Units
 

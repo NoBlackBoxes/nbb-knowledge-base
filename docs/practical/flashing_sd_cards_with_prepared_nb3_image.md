@@ -5,6 +5,7 @@ tags:
 - course
 - nbb
 - raspberry-pi
+author: viktor
 ---
 
 # Flashing Raspberry Pi SD Cards with Prepared NB3 Image

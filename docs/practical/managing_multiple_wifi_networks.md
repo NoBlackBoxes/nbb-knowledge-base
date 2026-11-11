@@ -6,6 +6,7 @@ tags:
 - wifi
 - networking
 - networkmanager
+author: viktor
 ---
 
 # Managing Multiple Wi-Fi Networks on Raspberry Pi

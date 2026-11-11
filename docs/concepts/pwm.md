@@ -5,6 +5,7 @@ tags:
 - arduino
 - electronics
 - hardware
+author: viktor
 ---
 
 # Pulse Width Modulation (PWM)

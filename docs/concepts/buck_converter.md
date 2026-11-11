@@ -5,6 +5,7 @@ tags:
 - electronics
 - hardware
 - power
+author: viktor
 ---
 
 # Buck and Boost Converters

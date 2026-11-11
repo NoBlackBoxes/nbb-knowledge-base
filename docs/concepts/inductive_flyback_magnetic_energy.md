@@ -1,3 +1,7 @@
+---
+author: viktor
+---
+
 # Inductive flyback: magnetic energy, voltage spikes and protection
 
 ## 1. How a coil stores energy
