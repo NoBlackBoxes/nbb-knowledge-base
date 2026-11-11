@@ -1,0 +1,14 @@
+# Local Python environment
+.venv/
+
+# Generated documentation site
+/site/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Local tool cache
+.cache/
+
+AGENTS.md
