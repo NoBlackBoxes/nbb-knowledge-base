@@ -9,12 +9,11 @@ site_url = "https://noblackboxes.github.io/nbb-knowledge-base/"
 repo_url = "https://github.com/NoBlackBoxes/nbb-knowledge-base"
 repo_name = "NoBlackBoxes/nbb-knowledge-base"
 
-[project.extra.authors.viktor]
-name = "Viktor"
-url = "https://viktorpm.github.io/"
-
 # MathJax renders the LaTeX in the notes; readers need an internet connection.
-extra_javascript = ["https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"]
+extra_javascript = [
+  "javascripts/mathjax.js",
+  "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
+]
 
 # =============================================================================
 # NAVIGATION
@@ -39,6 +38,10 @@ nav = [
     { "Raspberry Pi No-Sound Troubleshooting" = "practical/rpi_no_sound_troubleshooting.md" },
   ] },
 ]
+
+[project.extra.authors.viktor]
+name = "Viktor"
+url = "https://viktorpm.github.io/"
 
 # =============================================================================
 # THEME
@@ -128,7 +131,6 @@ pymdownx.tilde = {}
 #
 # Add under [project.theme]:
 # variant = "classic"
-# custom_dir = "overrides"
 # favicon = "images/favicon.png"
 
 #
