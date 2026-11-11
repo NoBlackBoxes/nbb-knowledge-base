@@ -1,0 +1,165 @@
+# =============================================================================
+# SITE
+# =============================================================================
+# Zensical reads this file; `docs/` is the default Markdown source directory.
+[project]
+site_name = "NBB Knowledge Base"
+site_description = "Course concepts and practical guides for No Black Boxes"
+site_url = "https://noblackboxes.github.io/nbb-knowledge-base/"
+repo_url = "https://github.com/NoBlackBoxes/nbb-knowledge-base"
+repo_name = "NoBlackBoxes/nbb-knowledge-base"
+
+# MathJax renders the LaTeX in the notes; readers need an internet connection.
+extra_javascript = ["https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"]
+
+# =============================================================================
+# NAVIGATION
+# =============================================================================
+nav = [
+  { "Home" = "index.md" },
+  { "Concepts" = [
+    { "Overview" = "concepts/index.md" },
+    { "AI Processing Units" = "concepts/ai_processing_units.md" },
+    { "Atomic Structure" = "concepts/atomic_structure_electrons_orbitals_shells.md" },
+    { "Buck and Boost Converters" = "concepts/buck_converter.md" },
+    { "Digital Signal Processing" = "concepts/digital_signal_processing.md" },
+    { "Inductive Flyback" = "concepts/inductive_flyback_magnetic_energy.md" },
+    { "Pulse Width Modulation" = "concepts/pwm.md" },
+  ] },
+  { "Practicals" = [
+    { "Overview" = "practical/index.md" },
+    { "Arduino CLI on Raspberry Pi" = "practical/arduino_cli_on_rpi.md" },
+    { "Arduino Programming" = "practical/arduino_programming.md" },
+    { "Build a Brain Demo Setup" = "practical/build_a_brain_demo_setup.md" },
+    { "Flash the Prepared NB3 Image" = "practical/flashing_sd_cards_with_prepared_nb3_image.md" },
+    { "Headless Wi-Fi Setup" = "practical/headless_wifi_connection_set_up.md" },
+    { "Manage Multiple Wi-Fi Networks" = "practical/managing_multiple_wifi_networks.md" },
+    { "Raspberry Pi No-Sound Troubleshooting" = "practical/rpi_no_sound_troubleshooting.md" },
+  ] },
+]
+
+# =============================================================================
+# THEME
+# =============================================================================
+[project.theme]
+language = "en"
+logo = "assets/logo.png"
+features = [
+  "announce.dismiss",
+  "content.code.annotate",
+  "content.code.copy",
+  "content.code.select",
+  "content.footnote.tooltips",
+  "content.tabs.link",
+  "content.tooltips",
+  "navigation.indexes",
+  "navigation.path",
+  "navigation.sections",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+]
+
+# Follow the reader's system theme, with a manual theme toggle.
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to system preference"
+
+# =============================================================================
+# MARKDOWN
+# =============================================================================
+# These extensions support the notes' callouts, diagrams, formatting, and math.
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+toc.permalink = false
+pymdownx.arithmatex.generic = true
+pymdownx.betterem = {}
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.line_spans = "__span"
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.magiclink = {}
+pymdownx.mark = {}
+pymdownx.smartsymbols = {}
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
+pymdownx.tabbed.combine_header_slug = true
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.tilde = {}
+
+# =============================================================================
+# OPTIONAL SETTINGS
+# =============================================================================
+# Move relevant options into their matching section above before enabling.
+#
+# Add under [project]:
+# site_author = "Your name"
+# copyright = "Copyright &copy; 2026 Your name"
+# edit_uri = "edit/main/docs/"
+# extra_css = ["stylesheets/extra.css"]
+#
+# Add under [project.theme]:
+# variant = "classic"
+# custom_dir = "overrides"
+# favicon = "images/favicon.png"
+
+#
+# Optional theme sub-sections:
+# [project.theme.icon]
+# logo = "lucide/smile"
+# [project.theme.font]
+# text = "Inter"
+# code = "Jetbrains Mono"
+#
+# Optional social links:
+# [[project.extra.social]]
+# icon = "fontawesome/brands/github"
+# link = "https://github.com/user/repo"
+# [[project.extra.social]]
+# icon = "fontawesome/brands/mastodon"
+# link = "https://fosstodon.org/@user"
+#
+# Add these to project.theme.features to enable them:
+# "content.action.edit"
+# "content.action.view"
+# "navigation.instant"
+# "navigation.instant.prefetch"
+# "navigation.instant.progress"
+# "navigation.expand"
+# "navigation.prune"
+# "navigation.tabs"
+# "navigation.tabs.sticky"
+# "header.autohide"
+# "toc.follow"
+# "toc.integrate"
+#
+# Instant navigation requires extra MathJax setup to re-render equations on
+# page changes. Leave it disabled unless that behavior is configured.
+#
+# Add under [project.markdown_extensions] to enable local snippets:
+# pymdownx.snippets.base_path = "includes"
