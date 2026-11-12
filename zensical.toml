@@ -21,6 +21,7 @@ extra_javascript = [
 nav = [
   { "Home" = "index.md" },
   { "Concepts" = [
+    { "Concepts" = "concepts/index.md" },
     { "AI Processing Units" = "concepts/ai_processing_units.md" },
     { "Atomic Structure" = "concepts/atomic_structure_electrons_orbitals_shells.md" },
     { "Buck and Boost Converters" = "concepts/buck_converter.md" },
@@ -29,6 +30,7 @@ nav = [
     { "Pulse Width Modulation" = "concepts/pwm.md" },
   ] },
   { "Practicals" = [
+    { "Practicals" = "practical/index.md" },
     { "Arduino CLI on Raspberry Pi" = "practical/arduino_cli_on_rpi.md" },
     { "Arduino Programming" = "practical/arduino_programming.md" },
     { "Build a Brain Demo Setup" = "practical/build_a_brain_demo_setup.md" },
@@ -42,6 +44,10 @@ nav = [
 [project.extra.authors.viktor]
 name = "Viktor"
 url = "https://viktorpm.github.io/"
+
+# Generate scoped topic listings on the Concepts and Practicals index pages.
+[project.plugins.tags]
+tags = false
 
 # =============================================================================
 # THEME

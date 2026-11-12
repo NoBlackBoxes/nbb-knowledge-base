@@ -1,9 +1,25 @@
 # NBB Knowledge Base
 
-Welcome! This knowledge base brings together background concepts and hands-on guides for the No Black Boxes course.
+This knowledge base brings together background concepts and hands-on guides for the No Black Boxes course.
 
-**Concepts** explains the ideas behind topics such as digital signals, electronics, and AI processing units.
+<div class="grid cards" markdown>
 
-**Practicals** offers step-by-step help with tools and equipment, including Arduino and Raspberry Pi setup, Wi-Fi, and troubleshooting.
+-   :lucide-book-open:{ .lg .middle } **Concepts**
 
-Choose a page from the navigation to get started.
+    ---
+
+    Explanations of the ideas behind the course, including electronics, digital signals and computing systems.
+
+    [Browse concepts →](concepts/index.md)
+
+-   :lucide-wrench:{ .lg .middle } **Practicals**
+
+    ---
+
+    Step-by-step guidance for configuring, programming and troubleshooting course hardware and software.
+
+    [Browse practicals →](practical/index.md)
+
+</div>
+
+You can also use search to find a specific term or task.
