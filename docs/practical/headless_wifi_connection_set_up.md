@@ -168,7 +168,7 @@ runcmd:
 !!! warning
     The first line **must** be exactly `#cloud-config` (no spaces before it).
     This is a special directive that tells cloud-init to process the file.
-    Without it, cloud-init will ignore the configuration.
+    Without it, cloud-init will not recognise the file as cloud-config data.[^cloud-init-user-data-format]
 
 **Key settings explained:**
 
@@ -220,7 +220,7 @@ runcmd:
 
 ### Configuration not applied
 
-Cloud-init uses these files for **initial provisioning**. Do not assume that a failed Wi-Fi connection means cloud-init will treat the next boot as another first boot.
+Cloud-init uses these files for **initial provisioning**. Do not assume that a failed Wi-Fi connection means cloud-init will treat the next boot as another first boot.[^cloud-init-first-boot]
 
 Therefore, make sure `network-config` and `user-data` are correct **before the Raspberry Pi is booted for the first time**.
 
@@ -264,3 +264,5 @@ For a headless Pi, the resulting behaviour should be:
 The important step is therefore to ensure that the configuration files are correct **before the first boot**, rather than relying on them being processed again after the Pi has already been provisioned.
 
 [^rpi-cloud-init]: [Raspberry Pi, *Cloud-init on Raspberry Pi OS*](https://www.raspberrypi.com/news/cloud-init-on-raspberry-pi-os/).
+[^cloud-init-user-data-format]: [Cloud-init, *New user tutorial with QEMU: What is user data?*](https://docs.cloud-init.io/en/latest/tutorial/qemu.html#what-is-user-data).
+[^cloud-init-first-boot]: [Cloud-init, *First boot determination*](https://docs.cloud-init.io/en/latest/explanation/first_boot.html).

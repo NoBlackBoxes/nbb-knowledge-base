@@ -86,7 +86,7 @@ nano blink.ino
 
 ### Nano (ATmega328P, *new bootloader*) — your working FQBN
 
-Use this FQBN for both compile and upload:
+Use this FQBN for both compile and upload.[^arduino-nano-variants]
 
 ```text
 arduino:avr:nano:cpu=atmega328
@@ -136,7 +136,7 @@ Log back in.
 
 #### Old vs new Nano bootloader
 
-- If you ever see `avrdude: stk500_getsync() ... not in sync`, try the other Nano variant:
+- If you ever see `avrdude: stk500_getsync() ... not in sync`, try the old-bootloader Nano variant defined by the Arduino AVR core:[^arduino-nano-variants]
 
 ```bash
 # old bootloader
@@ -217,3 +217,4 @@ arduino_build () {
 ```
 
 [^arduino-cli-install]: [Arduino, *Arduino CLI installation*](https://docs.arduino.cc/arduino-cli/installation/).
+[^arduino-nano-variants]: [Arduino, *Arduino AVR Boards: Arduino Nano processor and bootloader variants*](https://github.com/arduino/ArduinoCore-avr/blob/master/boards.txt).

@@ -78,7 +78,8 @@ sudo nmcli connection add \
 
 ### 2.3 Adding eduroam (WPA2 802.1X)
 
-Eduroam uses WPA2 Enterprise authentication with PEAP/MSCHAPV2. For UCL, use the following configuration.
+UCL's current eduroam CAT profile uses PEAP with MSCHAPv2 and validates the authentication server as `eduroam.ucl.ac.uk`.[^ucl-eduroam-cat]
+The manual configuration below uses those settings with the operating system's CA trust store.
 
 #### Add eduroam connection (UCL)
 
@@ -95,7 +96,7 @@ sudo nmcli connection add \
   802-1x.phase2-auth mschapv2 \
   802-1x.identity 'YOUR_UCL_USERNAME@ucl.ac.uk' \
   802-1x.password 'YOUR_PASSWORD' \
-  802-1x.anonymous-identity 'anonymous@ucl.ac.uk' \
+  802-1x.domain-match 'eduroam.ucl.ac.uk' \
   802-1x.ca-cert /etc/ssl/certs/ca-certificates.crt
 ```
 
@@ -108,8 +109,9 @@ sudo nmcli connection add \
 **UCL-specific settings:**
 
 - **Identity:** `YOUR_UCL_USERNAME@ucl.ac.uk` (your UCL username with @ucl.ac.uk)
-- **Anonymous identity:** `anonymous@ucl.ac.uk`
-- **CA certificate:** Uses system certificates (`/etc/ssl/certs/ca-certificates.crt`)
+- **Anonymous identity:** The current UCL CAT profile does not set a separate anonymous identity.[^ucl-eduroam-cat]
+- **Server name:** `eduroam.ucl.ac.uk`
+- **CA certificate:** This manual configuration uses the system trust store (`/etc/ssl/certs/ca-certificates.crt`); the CAT installer instead installs the CA certificate selected by UCL.[^ucl-eduroam-cat]
 
 #### Alternative: Prompt for the password when connecting
 
@@ -125,7 +127,7 @@ sudo nmcli connection add \
   802-1x.eap peap \
   802-1x.phase2-auth mschapv2 \
   802-1x.identity 'YOUR_UCL_USERNAME@ucl.ac.uk' \
-  802-1x.anonymous-identity 'anonymous@ucl.ac.uk' \
+  802-1x.domain-match 'eduroam.ucl.ac.uk' \
   802-1x.ca-cert /etc/ssl/certs/ca-certificates.crt
 
 # Connect and enter the missing password when prompted
@@ -146,23 +148,24 @@ If you want eduroam to have a specific priority in the auto-connect order:
 sudo nmcli connection modify eduroam connection.autoconnect yes connection.autoconnect-priority 15
 ```
 
-#### Optional: Set server name verification (if certificate verification fails)
+#### Optional: Change the server-name matching rule
 
 !!! note
-    These are valid NetworkManager settings, but the configured domain must match the current UCL authentication-server certificate.
+    The configuration above already uses the exact server name from UCL's current CAT profile.
+    These commands show the available alternatives; the configured domain must match the current UCL authentication-server certificate.
     An incorrect value will prevent eduroam from authenticating.
-    Confirm the expected domain against current UCL guidance before applying either option.
+    Check the current UCL CAT profile before changing it.
 
-If you encounter certificate verification issues, you can specify the domain to match:
+To accept the named server and any of its subdomains, use suffix matching:
 
 ```bash
-sudo nmcli connection modify eduroam 802-1x.domain-suffix-match ucl.ac.uk
+sudo nmcli connection modify eduroam 802-1x.domain-match "" 802-1x.domain-suffix-match eduroam.ucl.ac.uk
 ```
 
-Or use exact domain matching:
+To restore exact matching:
 
 ```bash
-sudo nmcli connection modify eduroam 802-1x.domain-match ucl.ac.uk
+sudo nmcli connection modify eduroam 802-1x.domain-suffix-match "" 802-1x.domain-match eduroam.ucl.ac.uk
 ```
 
 Or disable strict certificate verification (less secure, but matches phone setting):
@@ -464,3 +467,4 @@ Direct SSH was blocked on the tested UCL eduroam network, so use Pi Connect inst
 
 [^networkmanager-autoconnect]: [NetworkManager, *General connection-profile settings*](https://networkmanager.dev/docs/api/latest/settings-connection.html).
 [^rpi-wlan-country]: [Raspberry Pi, *Configuration: Enable wireless networking*](https://www.raspberrypi.com/documentation/computers/configuration.html#enable-wireless-networking).
+[^ucl-eduroam-cat]: [GÉANT eduroam CAT, *University College London Linux profile*](https://cat.eduroam.org/user/API.php?action=downloadInstaller&lang=en&profile=157&device=linux&generatedfor=user&openroaming=0).
