@@ -137,7 +137,7 @@ Current through the inductor increases and its magnetic field stores energy.
 
 ### Switch OFF
 
-The input is disconnected, but the inductor current cannot suddenly stop.
+The input is disconnected, but [the inductor current cannot suddenly stop](inductive_flyback_magnetic_energy.md#2-what-happens-when-we-switch-off-a-motor).
 
 Its magnetic field begins collapsing, inducing a voltage that keeps current flowing through the load using the diode (or a second MOSFET) as a return path.
 
@@ -149,7 +149,7 @@ The switch repeatedly alternates between these states, often hundreds of thousan
 
 ### Why is the output voltage lower?
 
-The switching effectively produces **PWM**.
+The switching effectively produces **[pulse-width modulation (PWM)](pwm.md)**.
 
 For an ideal buck converter operating normally:
 

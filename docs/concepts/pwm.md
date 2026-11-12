@@ -71,7 +71,7 @@ Normally:
 - the carrier frequency is much higher than the frequency of the signal we want to reproduce
 
 This is conceptually related to sampling: the desired waveform must be represented by sufficiently many PWM cycles.
-In practice, the PWM frequency is usually **much higher** than the desired signal frequency, not merely above the Nyquist limit.
+In practice, the PWM frequency is usually **much higher** than the desired signal frequency, not merely above the [Nyquist limit](digital_signal_processing.md#sampling-rate-and-nyquist).
 
 ## Something has to average the PWM
 
@@ -84,6 +84,7 @@ Different systems provide this naturally.
 
 **Motor:** the electrical and mechanical system cannot instantaneously respond to every pulse.
 Motor inductance smooths current, while the rotor's mechanical inertia smooths changes in speed and torque.
+When switching an inductive motor load, see [Inductive flyback: magnetic energy, voltage spikes and protection](inductive_flyback_magnetic_energy.md) for the resulting voltage transient and the required protection.
 
 **Analog voltage:** an electrical low-pass filter can convert the PWM into a relatively smooth voltage.
 

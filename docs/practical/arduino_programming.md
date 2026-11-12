@@ -12,7 +12,7 @@ author: viktor
 
 ## 1. What Arduino Is
 
-**Arduino = microcontroller + simple programming environment**
+**Arduino = [microcontroller](../concepts/ai_processing_units.md#mcu-microcontroller-unit) + simple programming environment**
 
 - Runs small programs called **sketches**
 - Written in **C/C++-like syntax**
@@ -168,7 +168,7 @@ Used for:
 int sensorValue = analogRead(A0);
 ```
 
-On classic AVR boards such as the Uno and Nano, the default 10-bit result range is:[^arduino-analog-api]
+On classic AVR boards such as the Uno and Nano, the default [10-bit ADC result](../concepts/digital_signal_processing.md#what-does-the-adc-actually-do) range is:[^arduino-analog-api]
 
 ```text
 0–1023
@@ -187,7 +187,7 @@ On classic AVR boards, the default 8-bit PWM range is:[^arduino-analog-api]
 ```
 
 !!! note
-    This is not true analog voltage — it’s **PWM (pulse-width modulation)**.
+    This is not true analog voltage — it’s **[PWM (pulse-width modulation)](../concepts/pwm.md)**.
 
 ## 9. Serial Communication
 
@@ -208,6 +208,8 @@ Serial.println(sensorValue);
 3. Upload to board
 4. Test hardware
 5. Debug with Serial Monitor
+
+For a terminal-based compile and upload workflow, see [Arduino CLI on Raspberry Pi](arduino_cli_on_rpi.md#2-organize-sketches-compile-upload).
 
 !!! tip "Mental model"
 
