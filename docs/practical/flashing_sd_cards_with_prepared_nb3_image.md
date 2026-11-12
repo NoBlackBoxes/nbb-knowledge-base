@@ -85,7 +85,7 @@ There are two preconfigured routers in the lab:
 Router A (`LBB-01`):
 
 - router IP: `192.168.1.1`
-- router password: `n0bl@ckb0xes` (the 0's are zeros)
+- router administration credentials: internal use only
 - SSID (5 GHz): `LBB-A`
 - SSID (2.4 GHz): `NB3-A`
 - Wi‑Fi password: `noblackboxes`
@@ -93,7 +93,7 @@ Router A (`LBB-01`):
 Router B (`LBB-02`):
 
 - router IP: `192.168.2.1`
-- router password: `n0bl@ckb0xes` (the 0's are zeros)
+- router administration credentials: internal use only
 - SSID (5 GHz): `LBB-B`
 - SSID (2.4 GHz): `NB3-B`
 - Wi‑Fi password: `noblackboxes`

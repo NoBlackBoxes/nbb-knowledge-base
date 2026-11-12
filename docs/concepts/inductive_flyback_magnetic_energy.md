@@ -1,4 +1,10 @@
 ---
+title: "Inductive Flyback: Magnetic Energy, Voltage Spikes and Protection"
+tags:
+  - technical
+  - electronics
+  - hardware
+  - power
 author: viktor
 ---
 

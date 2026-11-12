@@ -82,7 +82,7 @@ Eduroam uses WPA2 Enterprise authentication with PEAP/MSCHAPV2. For UCL, use the
 
 #### Add eduroam connection (UCL)
 
-Replace `ucqfvpl@ucl.ac.uk` with your UCL username and `YOUR_PASSWORD` with your password:
+Replace `YOUR_UCL_USERNAME@ucl.ac.uk` with your UCL username and `YOUR_PASSWORD` with your password:
 
 ```bash
 sudo nmcli connection add \
@@ -93,7 +93,7 @@ sudo nmcli connection add \
   wifi-sec.key-mgmt wpa-eap \
   802-1x.eap peap \
   802-1x.phase2-auth mschapv2 \
-  802-1x.identity 'ucqfvpl@ucl.ac.uk' \
+  802-1x.identity 'YOUR_UCL_USERNAME@ucl.ac.uk' \
   802-1x.password 'YOUR_PASSWORD' \
   802-1x.anonymous-identity 'anonymous@ucl.ac.uk' \
   802-1x.ca-cert /etc/ssl/certs/ca-certificates.crt
@@ -107,7 +107,7 @@ sudo nmcli connection add \
 
 **UCL-specific settings:**
 
-- **Identity:** `ucqfvpl@ucl.ac.uk` (your UCL username with @ucl.ac.uk)
+- **Identity:** `YOUR_UCL_USERNAME@ucl.ac.uk` (your UCL username with @ucl.ac.uk)
 - **Anonymous identity:** `anonymous@ucl.ac.uk`
 - **CA certificate:** Uses system certificates (`/etc/ssl/certs/ca-certificates.crt`)
 
@@ -124,7 +124,7 @@ sudo nmcli connection add \
   wifi-sec.key-mgmt wpa-eap \
   802-1x.eap peap \
   802-1x.phase2-auth mschapv2 \
-  802-1x.identity 'ucqfvpl@ucl.ac.uk' \
+  802-1x.identity 'YOUR_UCL_USERNAME@ucl.ac.uk' \
   802-1x.anonymous-identity 'anonymous@ucl.ac.uk' \
   802-1x.ca-cert /etc/ssl/certs/ca-certificates.crt
 
@@ -171,7 +171,7 @@ sudo nmcli connection modify eduroam 802-1x.ca-cert ""
 
 If connection fails:
 
-1. Verify your credentials are correct (format: `ucqfvpl@ucl.ac.uk`)
+1. Verify your credentials are correct (format: `YOUR_UCL_USERNAME@ucl.ac.uk`)
 2. Check connection status: `nmcli connection show eduroam`
 3. View connection logs: `journalctl -u NetworkManager -f`
 4. Verify the CA certificate path: `ls -la /etc/ssl/certs/ca-certificates.crt`
@@ -246,16 +246,24 @@ nmcli connection show
 
 Confirm no duplicate entries remain, then recreate the connection using the methods in sections 2.1–2.3.
 
-**Quick reset (removes all Wi-Fi configs):**
+#### Quick reset (removes all Wi-Fi configurations)
 
-⚠️ **CRITICAL WARNING:** This command will **delete ALL saved Wi-Fi connections** on your Raspberry Pi, including home Wi-Fi, phone hotspots, eduroam, and any other saved networks. After running this, your Pi will have **no Wi-Fi connectivity** until you manually re-add every network connection. If you're accessing the Pi remotely via SSH over Wi-Fi, **you will lose connection** and may need physical access to restore Wi-Fi. Only use this as a last resort if you're physically present or have alternative access methods.
+!!! danger "Destructive: this deletes every saved Wi-Fi connection"
+    Do **not** run this while relying on Wi-Fi for remote access. Restarting
+    NetworkManager will disconnect your SSH session, and you may need physical
+    access to restore connectivity.
 
-```bash
-sudo rm /etc/NetworkManager/system-connections/*
-sudo systemctl restart NetworkManager
-```
+    This removes home Wi-Fi, phone hotspots, eduroam, and every other saved
+    network profile. Only use it as a last resort when you are physically
+    present or have another access method.
 
-**After running this:** You must re-add all Wi-Fi connections from scratch using the methods in sections 2.1–2.3.
+    ```bash
+    sudo rm /etc/NetworkManager/system-connections/*
+    sudo systemctl restart NetworkManager
+    ```
+
+    Afterward, you must re-add all Wi-Fi connections using the methods in
+    sections 2.1–2.3.
 
 ## 3. Automatic Wi‑Fi switching (NetworkManager)
 
