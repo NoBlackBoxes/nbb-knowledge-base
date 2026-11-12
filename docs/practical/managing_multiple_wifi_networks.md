@@ -272,7 +272,7 @@ Confirm no duplicate entries remain, then recreate the connection using the meth
 
 ## 3. Automatic Wi‑Fi switching (NetworkManager)
 
-NetworkManager uses **connection priorities**.
+NetworkManager uses **connection priorities**.[^networkmanager-autoconnect]
 
 ### List saved connections
 
@@ -349,7 +349,7 @@ Set the WLAN country persistently:
 sudo raspi-config
 ```
 
-Select **Localisation Options → WLAN Country**, then select the country in which the Pi is being used.
+Select **Localisation Options → WLAN Country**, then select the country in which the Pi is being used.[^rpi-wlan-country]
 For the United Kingdom, select `GB`.
 
 Verify the current regulatory domain with:
@@ -461,3 +461,6 @@ Direct SSH was blocked on the tested UCL eduroam network, so use Pi Connect inst
 - **Direct SSH was blocked** on the tested UCL eduroam network
 - **Use Pi Connect** for remote shell access
 - Alternative: Switch to phone hotspot when direct SSH is needed
+
+[^networkmanager-autoconnect]: [NetworkManager, *General connection-profile settings*](https://networkmanager.dev/docs/api/latest/settings-connection.html).
+[^rpi-wlan-country]: [Raspberry Pi, *Configuration: Enable wireless networking*](https://www.raspberrypi.com/documentation/computers/configuration.html#enable-wireless-networking).

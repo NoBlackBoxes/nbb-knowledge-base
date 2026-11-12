@@ -168,7 +168,7 @@ Used for:
 int sensorValue = analogRead(A0);
 ```
 
-Range:
+On classic AVR boards such as the Uno and Nano, the default 10-bit result range is:[^arduino-analog-api]
 
 ```text
 0–1023
@@ -180,7 +180,7 @@ Range:
 analogWrite(9, 128);
 ```
 
-Range:
+On classic AVR boards, the default 8-bit PWM range is:[^arduino-analog-api]
 
 ```text
 0–255
@@ -241,3 +241,5 @@ void loop() {
   delay(500);
 }
 ```
+
+[^arduino-analog-api]: [Arduino, *Arduino API: Analog I/O*](https://docs.arduino.cc/learn/programming/reference?queryID=430fb9c2a1d6bab554865451ec62ca1a).

@@ -15,6 +15,8 @@ author: viktor
 
 ### Install `arduino-cli`
 
+Arduino provides the following installation script.[^arduino-cli-install]
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 sudo mv bin/arduino-cli /usr/local/bin/
@@ -213,3 +215,5 @@ arduino_build () {
   arduino_compile "$@" && arduino_upload "$@"
 }
 ```
+
+[^arduino-cli-install]: [Arduino, *Arduino CLI installation*](https://docs.arduino.cc/arduino-cli/installation/).

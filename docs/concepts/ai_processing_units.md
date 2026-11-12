@@ -238,7 +238,7 @@ Different manufacturers use different names for their AI accelerators.
 
 **TPU = Tensor Processing Unit**
 
-TPU is Google's name for a family of processors specifically designed for machine-learning workloads.
+TPU is Google's name for a family of processors specifically designed for machine-learning workloads.[^google-tpu-architecture]
 
 The word **tensor** refers to the multidimensional arrays of numbers used extensively in machine learning.
 
@@ -542,7 +542,7 @@ It is still a **CPU core**, not an NPU.
 
 However, it was designed with signal processing and machine-learning workloads in mind.
 
-It includes Arm's **Helium** technology, which provides vector-processing capabilities.
+It includes Arm's **Helium** technology, which provides vector-processing capabilities.[^arm-cortex-m55]
 
 Vector processing allows one instruction to operate on several values:
 
@@ -573,7 +573,7 @@ A Cortex-M55 can therefore run small neural networks **without a separate NPU**.
 
 The **Arm Ethos-U55** is different.
 
-It is a dedicated **NPU** designed for embedded and microcontroller-class systems.
+It is a dedicated **NPU** designed for embedded and microcontroller-class systems.[^arm-ethos-u55]
 
 It can be combined with a Cortex-M CPU.
 
@@ -836,7 +836,7 @@ while often retaining sufficient prediction accuracy.
 
 This is particularly important for small edge accelerators.
 
-For example, the Google Coral Edge TPU is strongly optimized around **8-bit quantized inference**.
+For example, the Google Coral Edge TPU is strongly optimized around **8-bit quantized inference**.[^coral-int8]
 
 ## Putting the terminology together
 
@@ -930,3 +930,8 @@ The central idea connecting all of these is simple:
 
 Neural networks require enormous numbers of relatively simple arithmetic operations.
 AI accelerators gain efficiency by dedicating large amounts of hardware to performing those operations in parallel.
+
+[^google-tpu-architecture]: [Google Cloud, *TPU architecture*](https://docs.cloud.google.com/tpu/docs/system-architecture-tpu-vm).
+[^arm-cortex-m55]: [Arm, *Cortex-M55 Processor Datasheet*](https://developer.arm.com/-/media/Arm%20Developer%20Community/PDF/Processor%20Datasheets/Arm%20Cortex-M55%20Processor%20Datasheet.pdf).
+[^arm-ethos-u55]: [Arm, *Ethos-U55*](https://developer.arm.com/Processors/Ethos-U55).
+[^coral-int8]: [Google AI Edge, *Post-training integer quantization*](https://developers.google.com/edge/litert/conversion/tensorflow/quantization/post_training_integer_quant).

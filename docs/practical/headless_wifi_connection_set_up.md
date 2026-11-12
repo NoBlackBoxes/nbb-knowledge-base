@@ -18,7 +18,8 @@ A guide for setting up Wi-Fi and SSH on a Raspberry Pi without a monitor or keyb
 
 When using Raspberry Pi Imager's "Edit settings" to configure Wi-Fi and SSH during installation, the initial configuration files (`user-data` and `network-config`) are processed by **cloud-init during the first boot**.
 
-On current Raspberry Pi OS (Trixie), `network-config` is used by cloud-init to generate a persistent **Netplan** configuration. Netplan then configures NetworkManager, which manages the actual Wi-Fi connection.
+On current Raspberry Pi OS (Trixie), `network-config` is used by cloud-init to generate a persistent **Netplan** configuration.[^rpi-cloud-init]
+Netplan then configures NetworkManager, which manages the actual Wi-Fi connection.
 
 Because the cloud-init configuration is intended for initial provisioning, it is important to make sure these files are correct **before the Pi is booted for the first time**.
 
@@ -261,3 +262,5 @@ For a headless Pi, the resulting behaviour should be:
 5. A temporary Wi-Fi interruption should not require manually entering the password again
 
 The important step is therefore to ensure that the configuration files are correct **before the first boot**, rather than relying on them being processed again after the Pi has already been provisioned.
+
+[^rpi-cloud-init]: [Raspberry Pi, *Cloud-init on Raspberry Pi OS*](https://www.raspberrypi.com/news/cloud-init-on-raspberry-pi-os/).

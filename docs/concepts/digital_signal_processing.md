@@ -380,7 +380,7 @@ Doubling the storage representation from 16 to 32 bits therefore **doubles the d
 
 ## Neuropixels example
 
-For 384 channels sampled at 30 kHz and stored as 16-bit values:
+This example uses 384 channels sampled at 30 kHz and stored as 16-bit values.[^neuropixels-specification]
 
 $$
 384\times30,000\times2
@@ -429,7 +429,7 @@ It only changes the representation used by the computer.
     **Storage bits = space allocated to represent the measurement**
     **Processing data type = representation used while performing calculations**
 
-Neuropixels raw data are commonly stored as **16-bit integers**, even though the effective/on-probe ADC resolution can be lower and depends on the Neuropixels generation and acquisition path.
+Neuropixels raw data are commonly stored as **16-bit integers**, even though the effective/on-probe ADC resolution can be lower and depends on the Neuropixels generation and acquisition path.[^spikeglx-format]
 
 During analysis, software may convert the raw integer values to `float32` for filtering, scaling, whitening and other mathematical operations.
 This approximately doubles RAM requirements relative to `int16`, but it does **not** increase the precision of the original measurement.
@@ -460,3 +460,6 @@ possibly converted to float32 for analysis
     **Nyquist** tells us the highest signal frequency that can be represented without aliasing.
     **Storage bit depth** tells us how much computer memory/disk space is allocated to each stored sample.
     These are related, but they are **not the same thing**.
+
+[^neuropixels-specification]: [Jun et al., *Fully integrated silicon probes for high-density recording of neural activity*](https://www.nature.com/articles/nature24636); [Neuropixels, *Neuropixels 1.0 probe specification*](https://1d1204a4-e092-4bd5-ab7d-6d350a74299f.filesusr.com/ugd/328966_c59e77054175456cb0c3ef82b32219c1.pdf).
+[^spikeglx-format]: [SpikeGLX, *User manual*](https://github.com/billkarsh/SpikeGLX/blob/master/Markdown/UserManual.md).

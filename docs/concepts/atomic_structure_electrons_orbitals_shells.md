@@ -223,7 +223,7 @@ For transition metals, "valence electrons" cannot simply mean **electrons in the
 
 The outer $ns$ and nearby $(n-1)d$ subshells have similar energies, so electrons from both can participate in chemistry.
 
-For example:
+For example, the following ground-state configurations are listed by NIST.[^nist-electron-configurations]
 
 ### Chromium — group 6
 
@@ -331,3 +331,5 @@ Instead, electromagnetic attraction provides the potential that binds electrons,
 As electrons are added, the lowest available states fill and additional electrons must occupy other allowed states.
 
 The periodic table is the macroscopic chemical fingerprint of that quantum structure.
+
+[^nist-electron-configurations]: [NIST, *Electronic configurations of the elements*](https://math.nist.gov/DFTdata/atomdata/configuration.html).

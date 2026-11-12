@@ -608,7 +608,7 @@ For a robust classroom demonstration, a properly designed separate indicator or 
 
 ### What about the IRL510?
 
-The IRL510 MOSFET has a rated maximum drain-source voltage of 100 V.
+The IRL510 MOSFET has a rated maximum drain-source voltage of 100 V.[^irl510-datasheet]
 
 That rating is not a target operating voltage, and staying below it alone does not guarantee a safe design.
 
@@ -691,3 +691,5 @@ If no suitable path exists, the voltage may rise until capacitance, breakdown or
 
 **The energy was already stored in the magnetic field.
 The circuit determines how that energy is released, how quickly the current changes, and how high the voltage rises.**
+
+[^irl510-datasheet]: [Vishay, *IRL510 Power MOSFET datasheet*](https://www.vishay.com/docs/91297/irl510.pdf), p. 1.
