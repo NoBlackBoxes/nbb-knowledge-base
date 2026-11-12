@@ -1,15 +1,14 @@
 ---
 title: Build a Brain Demo Setup
 tags:
-- work
-- course
-- nbb
-- raspberry-pi
+  - work
+  - course
+  - nbb
+  - raspberry-pi
 author: viktor
 ---
 
 # Build a brain demo setup (fresh card)
-
 
 This guide is for running the Look project on the NB3 (Raspberry Pi) through VS Code Remote SSH.
 
@@ -23,13 +22,11 @@ This guide is for running the Look project on the NB3 (Raspberry Pi) through VS 
 **Why:** all commands below must run on the NB3, not on your local computer.
 
 ## 1) Open the repo in terminal
-  
 
 ```bash
 cd ~/NoBlackBoxes/LastBlackBox
 ```
 
-  
 **Why:** all project commands assume this root folder.
 
 ## 2) Confirm clean Git state
@@ -44,13 +41,11 @@ Expected: `nothing to commit, working tree clean`
 
 ## 3) Run Sync twice (from inside VS Code terminal on NB3)
 
-
 ```bash
 Sync
 Sync
 ```
 
-  
 **Why:** the first run may only pull the newer `sync.sh`; the second run executes that newer script and applies the Python path fix automatically.
 
 ## 4) Close and reopen terminal
@@ -61,11 +56,9 @@ Open a new terminal, then:
 cd ~/NoBlackBoxes/LastBlackBox
 ```
 
-  **Why:** reloads shell environment from startup files.
+**Why:** reloads shell environment from startup files.
 
-  
 ## 5) Confirm environment loaded
-  
 
 ```bash
 echo "$LBB"
@@ -74,15 +67,13 @@ which python
 python -V
 ```
 
-  
 Expected:
- 
+
 - `LBB` points to `~/NoBlackBoxes/LastBlackBox`
 - `Sync` exists as alias/script
 - Python points to `_tmp/LBB/bin/python`
 
 ## 6) Validate required Python imports
-
 
 ```bash
 python - <<'PY'
@@ -92,7 +83,6 @@ print("Environment imports OK")
 PY
 ```
 
-  
 If this succeeds, continue to Step 7.
 
 If it fails after two `Sync` runs:
@@ -101,10 +91,9 @@ If it fails after two `Sync` runs:
 2. Open a fresh terminal and return to the repo root.
 3. Re-run the import test in Step 6.
 
-  If it still fails, stop here and troubleshoot the Python environment before continuing.
+If it still fails, stop here and troubleshoot the Python environment before continuing.
 
-  ## 7) Check serial device
-  
+## 7) Check serial device
 
 ```bash
 PORTS=$(ls /dev/ttyUSB* /dev/ttyACM* 2>/dev/null || true)
@@ -114,19 +103,16 @@ else
 echo "No serial device found"
 fi
 ```
-  
 
 **Why:** `look.py` needs serial hardware.
 
 ## 8) Run demo
-
 
 ```bash
 cd ~/NoBlackBoxes/LastBlackBox/boxes/intelligence/NPU/look-NB3
 python look.py
 ```
 
-  
 ## Sync script comparison (old vs newer)
 
 Use this section only as reference when diagnosing `Sync` behavior during transitions.
@@ -139,7 +125,6 @@ Key differences:
 - **Why two runs can help:** if first run starts with old script, it can pull the newer script; second run executes newer logic.
 
 Old local version (`course/versions/buildabrain/_resources/demo-NB3/sync.sh`):
-
 
 ```bash
 #!/bin/bash
@@ -160,9 +145,7 @@ source ${HOME}/.bashrc
 echo "Sync Complete."
 ```
 
-  
 Newer remote version:
- 
 
 ```bash
 #!/bin/bash -i
@@ -192,7 +175,6 @@ source ${HOME}/.bashrc
 echo "Sync Complete."
 ```
 
-  
 ## Related course docs
 
 - Setup VS Code folder: `course/versions/buildabrain/_resources/setup-vscode.md`

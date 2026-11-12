@@ -1,11 +1,11 @@
 ---
 title: Managing Multiple Wi-Fi Networks on Raspberry Pi
 tags:
-- technical
-- raspberry-pi
-- wifi
-- networking
-- networkmanager
+  - technical
+  - raspberry-pi
+  - wifi
+  - networking
+  - networkmanager
 author: viktor
 ---
 
@@ -25,6 +25,7 @@ A guide for adding and managing multiple Wi-Fi connections (home Wi‑Fi, phone 
 ### 2.1 Adding a phone hotspot
 
 First, scan for available networks:
+
 ```bash
 sudo nmcli device wifi rescan
 nmcli device wifi list
@@ -32,14 +33,16 @@ nmcli device wifi list
 
 Find your phone hotspot in the list (look for your phone's name or the SSID you set).
 
-**Method 1: Interactive connection (recommended)**
+#### Method 1: Interactive connection (recommended)
+
 ```bash
 sudo nmcli device wifi connect "SSID_NAME" password "PASSWORD"
 ```
 
 Replace `SSID_NAME` with your hotspot's name (e.g., `Pixel_4211`) and `PASSWORD` with the hotspot password.
 
-**Method 2: Add connection profile (for better control)**
+#### Method 2: Add connection profile (for better control)
+
 ```bash
 sudo nmcli connection add \
   type wifi \
@@ -62,6 +65,7 @@ sudo nmcli device wifi connect "YourWiFiName" password "YourPassword"
 ```
 
 Or create a connection profile:
+
 ```bash
 sudo nmcli connection add \
   type wifi \
@@ -76,7 +80,7 @@ sudo nmcli connection add \
 
 Eduroam uses WPA2 Enterprise authentication with PEAP/MSCHAPV2. For UCL, use the following configuration.
 
-**Add eduroam connection (UCL)**
+#### Add eduroam connection (UCL)
 
 Replace `ucqfvpl@ucl.ac.uk` with your UCL username and `YOUR_PASSWORD` with your password:
 
@@ -96,16 +100,18 @@ sudo nmcli connection add \
 ```
 
 **Quoting:**
+
 - **Identity and password:** Use **single quotes** (`'value'`) to prevent shell interpretation of special characters (@, $, spaces, etc.)
 - The `@` symbol in the identity requires quotes
 - If your password contains a single quote, escape it: `'pass'\''word'` or use double quotes: `"password"`
 
 **UCL-specific settings:**
+
 - **Identity:** `ucqfvpl@ucl.ac.uk` (your UCL username with @ucl.ac.uk)
 - **Anonymous identity:** `anonymous@ucl.ac.uk`
 - **CA certificate:** Uses system certificates (`/etc/ssl/certs/ca-certificates.crt`)
 
-**Alternative: Interactive setup (prompts for password)**
+#### Alternative: Interactive setup (prompts for password)
 
 If you prefer not to include the password in the command:
 
@@ -126,13 +132,13 @@ sudo nmcli connection add \
 sudo nmcli connection modify eduroam 802-1x.password
 ```
 
-**Connect to eduroam**
+#### Connect to eduroam
 
 ```bash
 sudo nmcli connection up eduroam
 ```
 
-**Set priority (optional)**
+#### Set priority (optional)
 
 If you want eduroam to have a specific priority in the auto-connect order:
 
@@ -140,7 +146,7 @@ If you want eduroam to have a specific priority in the auto-connect order:
 sudo nmcli connection modify eduroam connection.autoconnect yes connection.autoconnect-priority 15
 ```
 
-**Optional: Set server name verification (if certificate verification fails)**
+#### Optional: Set server name verification (if certificate verification fails)
 
 If you encounter certificate verification issues, you can specify the domain to match:
 
@@ -161,23 +167,24 @@ sudo nmcli connection modify eduroam 802-1x.system-ca-certs yes
 sudo nmcli connection modify eduroam 802-1x.ca-cert ""
 ```
 
-**Troubleshooting**
+#### Troubleshooting
 
 If connection fails:
+
 1. Verify your credentials are correct (format: `ucqfvpl@ucl.ac.uk`)
 2. Check connection status: `nmcli connection show eduroam`
 3. View connection logs: `journalctl -u NetworkManager -f`
 4. Verify the CA certificate path: `ls -la /etc/ssl/certs/ca-certificates.crt`
 5. Try connecting manually: `sudo nmcli device wifi connect eduroam`
 
-**SSH access limitation on eduroam**
+#### SSH access limitation on eduroam
 
 !!! warning
     Direct SSH from your laptop to the Raspberry Pi will **not work** when both devices are connected to eduroam, even if you know the Pi's IP address.
     Eduroam uses **AP isolation** (also called client isolation), which blocks direct client-to-client communication.
     This is a security feature common on institutional networks that prevents devices on the same Wi‑Fi network from communicating directly with each other.
 
-**Workaround: Use Pi Connect**
+##### Workaround: Use Pi Connect
 
 Since direct SSH is blocked, you must use **Pi Connect** (or another tunnel/VPN solution) to access your Raspberry Pi remotely:
 
@@ -186,6 +193,7 @@ Since direct SSH is blocked, you must use **Pi Connect** (or another tunnel/VPN 
 3. Pi Connect works because it routes traffic through a cloud service, bypassing the AP isolation
 
 **Alternative workarounds:**
+
 - Use your phone hotspot when you need direct SSH access
 - Set up a reverse SSH tunnel through a VPS/server accessible from both devices
 - Use a VPN that both devices connect to
@@ -195,6 +203,7 @@ Since direct SSH is blocked, you must use **Pi Connect** (or another tunnel/VPN 
 ### 2.4 Verify connections
 
 After adding connections, verify they're saved:
+
 ```bash
 nmcli connection show
 ```
@@ -206,6 +215,7 @@ You should see all your saved connections listed.
 If NetworkManager warns about duplicate connections (e.g., multiple profiles with the same name), remove them before creating a new one.
 
 **List all connections:**
+
 ```bash
 nmcli connection show
 ```
@@ -213,6 +223,7 @@ nmcli connection show
 This shows all saved profiles with their UUIDs. Look for duplicate entries with the same name.
 
 **Delete duplicates by name:**
+
 ```bash
 nmcli connection delete CONNECTION_NAME
 ```
@@ -220,6 +231,7 @@ nmcli connection delete CONNECTION_NAME
 If multiple profiles share the same name, repeat the command until all are removed.
 
 **Delete by UUID (more reliable):**
+
 ```bash
 nmcli connection delete UUID
 ```
@@ -227,6 +239,7 @@ nmcli connection delete UUID
 Use the UUID from `nmcli connection show` output. Repeat for each duplicate UUID.
 
 **Verify removal:**
+
 ```bash
 nmcli connection show
 ```
@@ -249,36 +262,43 @@ sudo systemctl restart NetworkManager
 NetworkManager uses **connection priorities**.
 
 ### List saved connections
+
 ```bash
 nmcli connection show
 ```
 
 ### Set priorities
+
 Higher number = preferred network.
 
 Example:
+
 ```bash
 sudo nmcli connection modify Pixel_4211 connection.autoconnect yes connection.autoconnect-priority 20
 sudo nmcli connection modify netplan-wlan0-BT-9XCTRN connection.autoconnect yes connection.autoconnect-priority 10
 ```
 
 Behaviour:
+
 - Hotspot available → Pi switches to hotspot
 - Hotspot gone → Pi falls back to home Wi‑Fi
 
 ## 4. Manually switching Wi‑Fi (immediate override)
 
 ### Switch to hotspot
+
 ```bash
 sudo nmcli connection up Pixel_4211
 ```
 
 ### Switch to home Wi‑Fi
+
 ```bash
 sudo nmcli connection up netplan-wlan0-BT-9XCTRN
 ```
 
 ### Reset Wi‑Fi and reconnect by priority
+
 ```bash
 sudo nmcli device disconnect wlan0
 sudo nmcli device connect wlan0
@@ -287,16 +307,19 @@ sudo nmcli device connect wlan0
 ## 5. Network inspection and utilities
 
 ### Show IP address
+
 ```bash
 hostname -I
 ```
 
 ### Show detailed Wi‑Fi info
+
 ```bash
 nmcli device show wlan0
 ```
 
 ### Scan Wi‑Fi networks (root required)
+
 ```bash
 sudo nmcli device wifi rescan
 nmcli device wifi list
@@ -307,6 +330,7 @@ nmcli device wifi list
 Many phone hotspots use **2.4 GHz channel 13**, which is blocked unless the country is set.
 
 Set once:
+
 ```bash
 sudo iw reg set GB
 sudo systemctl restart NetworkManager
@@ -319,11 +343,13 @@ sudo systemctl restart NetworkManager
 Both **PowerShell and WSL** work on home Wi‑Fi.
 
 #### Using hostname (works in both PowerShell and WSL)
+
 ```bash
 ssh vplattner@raspberrypi
 ```
 
 #### Using IP address (works in both PowerShell and WSL)
+
 ```bash
 ssh vplattner@192.168.1.224
 ```
@@ -335,6 +361,7 @@ ssh vplattner@192.168.1.224
 Use **PowerShell or Windows Terminal**. WSL typically fails on phone hotspots.
 
 #### Best option (mDNS over IPv6)
+
 ```powershell
 ssh vplattner@raspberrypi.local
 ```
@@ -342,6 +369,7 @@ ssh vplattner@raspberrypi.local
 This resolves to an IPv6 link‑local address (`fe80::...`) and works on hotspots. Make sure your laptop is connected to the same hotspot as the Pi.
 
 #### IPv4 fallback (when IP is known)
+
 ```powershell
 ssh vplattner@10.85.82.194
 ```
@@ -353,6 +381,7 @@ ssh vplattner@10.85.82.194
 **Direct SSH does NOT work** on eduroam due to AP isolation (client-to-client communication is blocked).
 
 **Use Pi Connect instead:**
+
 1. Set up Pi Connect on your Raspberry Pi
 2. Access the Pi via Pi Connect's remote shell feature from your laptop
 3. Pi Connect routes traffic through a cloud service, bypassing AP isolation
@@ -364,6 +393,7 @@ ssh vplattner@10.85.82.194
 ### 7.4 WSL limitations
 
 WSL works on **home Wi‑Fi** but typically fails on **phone hotspots** because:
+
 - WSL is behind a NAT (`172.31.x.x`)
 - It cannot reliably reach IPv6 link‑local addresses (commonly used by hotspots)
 - Hotspot client-to-client communication may be restricted
@@ -375,12 +405,14 @@ WSL works on **home Wi‑Fi** but typically fails on **phone hotspots** because:
 **Critical requirement:** Both your laptop and Raspberry Pi must be connected to the same network (home Wi‑Fi or phone hotspot). **Note:** Direct SSH does not work on eduroam - use Pi Connect instead.
 
 **On home Wi‑Fi:**
+
 - PowerShell and WSL both work
 - Regular hostname (`raspberrypi`) works
 - IP address works
 - `.local` hostname does NOT work
 
 **On phone hotspots:**
+
 - PowerShell SSH works
 - `.local` hostname (IPv6 mDNS) works
 - Direct IPv4 SSH works if client‑to‑client traffic is allowed
@@ -388,6 +420,7 @@ WSL works on **home Wi‑Fi** but typically fails on **phone hotspots** because:
 - Regular hostname typically does NOT work
 
 **On eduroam:**
+
 - **Direct SSH does NOT work** (AP isolation blocks client-to-client communication)
 - **Use Pi Connect** for remote shell access
 - Alternative: Switch to phone hotspot when direct SSH is needed

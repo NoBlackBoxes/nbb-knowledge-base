@@ -8,6 +8,7 @@ tags:
   - data-processing
 author: viktor
 ---
+
 # AI Processing Units
 
 ## The basic idea: general-purpose vs specialized processors
@@ -29,8 +30,6 @@ This flexibility makes CPUs suitable for running operating systems and general s
 However, if a task consists of performing the same relatively simple calculation millions or billions of times, it can be more efficient to build hardware specifically optimized for that calculation.
 
 This is the basic idea behind **hardware accelerators**.
-
----
 
 ## What is special about AI computation?
 
@@ -65,8 +64,6 @@ A neural network may need millions or billions of these operations to process a 
     There is no special "AI arithmetic".
     AI accelerators perform ordinary arithmetic, but their hardware is arranged specifically to perform the operations common in neural networks very efficiently.
 
----
-
 ## Why parallel processing matters
 
 Many neural-network calculations are independent and can therefore be performed **at the same time**.
@@ -95,8 +92,6 @@ This is **parallel processing**.
 !!! tip "Intuition"
     Instead of one very capable worker performing thousands of similar jobs one after another, use many simpler workers to perform those jobs simultaneously.
 
----
-
 ## ALUs, MAC units and processing elements
 
 A normal CPU contains **ALUs (Arithmetic Logic Units)** and other execution units.
@@ -124,7 +119,6 @@ ALU     ALU     Vector/FPU
  ↓       ↓          ↓
 Flexible general-purpose computation
 
-
 AI accelerator
 
 MAC MAC MAC MAC MAC MAC
@@ -144,11 +138,9 @@ Depending on the architecture, these units may be called:
 
 So it is reasonable to think of an AI accelerator as containing **large numbers of specialized arithmetic units optimized for neural-network mathematics**.
 
----
+## CPU, GPU and AI Accelerators
 
-# CPU, GPU and AI Accelerators
-
-## CPU — Central Processing Unit
+### CPU — Central Processing Unit
 
 A **CPU** is designed for general-purpose computing.
 
@@ -173,9 +165,7 @@ CPUs are particularly good at:
 
 A CPU can run a neural network, but it may not be the fastest or most energy-efficient way to do so.
 
----
-
-## GPU — Graphics Processing Unit
+### GPU — Graphics Processing Unit
 
 A **GPU (Graphics Processing Unit)** was originally designed for computer graphics.
 
@@ -213,9 +203,7 @@ GPUs are widely used for both:
 
 of neural networks.
 
----
-
-## NPU — Neural Processing Unit
+### NPU — Neural Processing Unit
 
 An **NPU (Neural Processing Unit)** is hardware specifically designed to accelerate neural-network calculations.
 
@@ -246,9 +234,7 @@ Conceptually:
 
 Different manufacturers use different names for their AI accelerators.
 
----
-
-## TPU — Tensor Processing Unit
+### TPU — Tensor Processing Unit
 
 **TPU = Tensor Processing Unit**
 
@@ -290,9 +276,7 @@ A TPU therefore contains hardware optimized for this type of computation.
     **TPU** is Google's terminology for its own family of machine-learning processors.
     They describe similar broad ideas but are not interchangeable names for identical hardware.
 
----
-
-# Google Coral Edge TPU
+## Google Coral Edge TPU
 
 The **Google Coral Edge TPU** is a small TPU designed specifically for **edge inference**.
 
@@ -340,13 +324,11 @@ The Coral therefore **does not replace the CPU**.
 
 It is an **accelerator** used by the CPU.
 
----
-
-# Training vs inference
+## Training vs inference
 
 This distinction is important when discussing AI processors.
 
-## Training
+### Training
 
 During training:
 
@@ -368,7 +350,7 @@ Training determines the parameters or **weights** of the neural network.
 
 Training is computationally expensive and is commonly performed using powerful GPUs or specialized data-centre accelerators.
 
-## Inference
+### Inference
 
 Once the network has been trained:
 
@@ -388,9 +370,7 @@ It is using the already learned weights to process new data.
 
 The Coral Edge TPU is primarily an **inference accelerator**.
 
----
-
-# MCU — Microcontroller Unit
+## MCU — Microcontroller Unit
 
 An **MCU (Microcontroller Unit)** is somewhat different from CPU/GPU/NPU terminology.
 
@@ -436,9 +416,7 @@ MCUs are designed to be:
 - low power
 - suitable for real-time hardware control
 
----
-
-# TinyML
+## TinyML
 
 Traditionally, neural networks required more processing power and memory than small microcontrollers could provide.
 
@@ -474,9 +452,7 @@ TinyML is particularly useful for:
 - predictive maintenance
 - small robots
 
----
-
-# Arm
+## Arm
 
 **Arm** is a company that designs processor architectures and processor cores.
 
@@ -504,9 +480,7 @@ Very roughly:
 | Cortex-R | Real-time processors |
 | Cortex-M | Microcontrollers |
 
----
-
-## Cortex-A
+### Cortex-A
 
 **Cortex-A** processors are relatively powerful application processors.
 
@@ -514,9 +488,7 @@ They are suitable for running operating systems such as Linux and are commonly f
 
 They are much closer conceptually to the processors found in a Raspberry Pi than to a simple Arduino-style microcontroller.
 
----
-
-## Cortex-R
+### Cortex-R
 
 **Cortex-R** processors are designed for systems requiring predictable **real-time behaviour** and high reliability.
 
@@ -526,9 +498,7 @@ They are used in applications such as:
 - storage controllers
 - industrial systems
 
----
-
-## Cortex-M
+### Cortex-M
 
 **Cortex-M** is Arm's microcontroller processor family.
 
@@ -564,9 +534,7 @@ MCU
     The MCU is the complete microcontroller chip.
     Cortex-M is a CPU core that can be included inside that chip.
 
----
-
-# Cortex-M55
+## Cortex-M55
 
 The **Arm Cortex-M55** is a particular member of the Cortex-M family.
 
@@ -588,7 +556,6 @@ A4 × B4
 
 performed separately
 
-
 Vector operation:
 
 [A1 A2 A3 A4]
@@ -602,9 +569,7 @@ This makes the Cortex-M55 considerably better suited to DSP and machine-learning
 
 A Cortex-M55 can therefore run small neural networks **without a separate NPU**.
 
----
-
-# Ethos-U55
+## Ethos-U55
 
 The **Arm Ethos-U55** is different.
 
@@ -677,9 +642,7 @@ Cortex-M55 CPU + Ethos-U55 NPU
 !!! note
     Both use a **general-purpose/control processor + specialized AI accelerator**, but they target very different power and performance levels.
 
----
-
-# SoC — System on Chip
+## SoC — System on Chip
 
 A **SoC (System on Chip)** combines many parts of a computer onto a single physical chip.
 
@@ -713,9 +676,7 @@ Therefore, statements such as:
     They may be three different **processing blocks inside one SoC**.
     Smartphone processors are good examples of this approach.
 
----
-
-# Edge AI
+## Edge AI
 
 **Edge AI** means performing AI inference locally, close to where the data is generated, rather than sending the data to a remote server or cloud service.
 
@@ -759,9 +720,7 @@ Advantages can include:
 
 Google Coral and Cortex-M + Ethos systems are both examples of hardware that can be used for edge AI, although at very different scales.
 
----
-
-# Performance: more units = faster?
+## Performance: more units = faster?
 
 Generally, having more parallel arithmetic units means an accelerator has the **potential** to perform more operations simultaneously.
 
@@ -799,9 +758,7 @@ Performance therefore depends on factors including:
 - accelerator architecture
 - neural-network architecture
 
----
-
-# TOPS
+## TOPS
 
 AI accelerator performance is often advertised in **TOPS**.
 
@@ -829,9 +786,7 @@ Two processors with the same TOPS rating can perform very differently because of
 
 TOPS comparisons therefore need context.
 
----
-
-# Numerical precision and quantization
+## Numerical precision and quantization
 
 Neural-network calculations operate on numbers.
 
@@ -883,9 +838,7 @@ This is particularly important for small edge accelerators.
 
 For example, the Google Coral Edge TPU is strongly optimized around **8-bit quantized inference**.
 
----
-
-# Putting the terminology together
+## Putting the terminology together
 
 The terms describe different levels and types of hardware.
 
@@ -939,7 +892,6 @@ Cortex-A      Cortex-M
                   │
              Cortex-M55
 
-
 Example embedded AI system:
 
         Cortex-M55
@@ -948,7 +900,6 @@ Example embedded AI system:
              ▼
         Ethos-U55
             NPU
-
 
 Example Coral system:
 
@@ -960,7 +911,7 @@ Example Coral system:
      AI accelerator
 ```
 
-# Key takeaways
+## Key takeaways
 
 !!! info "Important"
     - **CPU** = flexible general-purpose processor.

@@ -1,10 +1,10 @@
 ---
 title: Atomic Structure - Electrons, Orbitals, Shells and the Periodic Table
 tags:
-- technical
-- physics
-- chemistry
-- reference
+  - technical
+  - physics
+  - chemistry
+  - reference
 author: viktor
 ---
 
@@ -15,21 +15,15 @@ author: viktor
 Atoms are held together by **electromagnetic attraction between the positively charged nucleus and negatively charged electrons**.
 
 - Protons (+) attract electrons (−).
-
 - Electrons repel other electrons.
-
 - Protons repel other protons.
-
 - The nucleus itself is held together primarily by the **strong nuclear interaction**, which overcomes proton–proton electrical repulsion at nuclear distances.
-
 
 Quantum mechanics does **not** replace electromagnetic attraction.
 Electromagnetism provides the attractive interaction; quantum mechanics determines what electron configurations are possible.
 
 !!! note
     **Electromagnetism provides the attraction; quantum mechanics determines the resulting atomic structure.**
-
----
 
 ## Electrons are not little orbiting dots
 
@@ -43,8 +37,6 @@ It describes a quantum state and the spatial probability distribution associated
 
 Only particular wave patterns/energy states are allowed.
 This quantization produces the structure we describe as **shells, subshells and orbitals**.
-
----
 
 ## Why don't electrons collapse into the nucleus?
 
@@ -64,13 +56,9 @@ Its momentum uncertainty—and therefore its characteristic kinetic energy—wou
 The stable atomic state therefore represents a balance between:
 
 - electromagnetic attraction pulling the electron inward;
-
 - quantum kinetic energy making extreme confinement energetically costly.
 
-
 For multi-electron atoms, the **Pauli exclusion principle** additionally prevents all electrons from occupying the same lowest-energy quantum state.
-
----
 
 ## The Pauli exclusion principle — what does it actually mean?
 
@@ -96,9 +84,7 @@ This connection between half-integer-spin particles and fermionic behaviour is f
 
 Why nature ultimately has these particular quantum laws is a deeper question for which physics currently has no further established mechanistic answer.
 
----
-
-# The four quantum numbers
+## The four quantum numbers
 
 An electron state in an atom is specified by four quantum numbers:
 
@@ -117,18 +103,13 @@ No two electrons in an atom can have all four quantum numbers identical.
 
 Consequently, a single orbital can contain **two electrons**: they have identical $n$, $l$, and $m_l$, but opposite $m_s$.
 
----
-
-## How shells contain subshells and orbitals
+### How shells contain subshells and orbitals
 
 The hierarchy **shell → subshell → orbital** is literal in the sense that each level determines which states can exist at the next level.
 
 - Every **shell** contains one or more allowed subshells.
-
 - Every **subshell** contains one or more orbitals.
-
 - Every **orbital** can contain at most two electrons, which must have opposite spins.
-
 
 | Shell | Allowed subshells | Number of orbitals | Maximum electrons (# orbitals x 2) |
 | ----- | ----------------- | ------------------ | ---------------------------------- |
@@ -155,28 +136,19 @@ $\mathrm{Li}: 1s^2\,2s^1$
 
 This is the concrete meaning of electrons “filling shells”: they occupy the lowest-energy allowed quantum states until all states available at that level are occupied, after which they must occupy another allowed state.
 
----
-
-# How electrons fill states
+## How electrons fill states
 
 Electrons occupy the **lowest-energy available quantum states**.
 
 For the smallest atoms the logic is particularly easy to see:
 
 - **H:** first electron occupies $1s$.
-
 - **He:** second electron can occupy the same $1s$ orbital by having opposite spin.
-
 - **Li:** $1s$ is full, so the next electron occupies $2s$.
-
 - **Be:** second electron fills $2s$.
-
 - **B:** $2s$ is full, so the next electron enters $2p$.
-
 - **C and N:** electrons occupy different available p orbitals before pairing.
-
 - **O, F, Ne:** those p orbitals progressively become paired.
-
 
 A useful conceptual sequence is therefore:
 
@@ -186,9 +158,7 @@ A useful conceptual sequence is therefore:
 
 For larger atoms, that simple sequence becomes less obvious because subshell energies overlap.
 
----
-
-# Shells, periods and the periodic table
+## Shells, periods and the periodic table
 
 The **periods (rows)** of the periodic table correspond approximately to principal electron shells.
 
@@ -205,7 +175,6 @@ For example:
 - Period 2 adds another 8 → neon has 2+8 = 10.
 - Period 3 adds another 8 → argon has 2+8+8=18
 - Period 4 adds another 18 → krypton has 36.
-
 
 For a neutral atom, moving one position to the right adds **one proton and one electron**, so atomic number increases by one.
 
@@ -230,18 +199,14 @@ So:
 
 As atomic number increases, there are more electrons, more electron–electron interactions and more shielding, so the energetic ordering becomes increasingly complicated.
 
----
-
-# Why the periodic-table columns relate to valence electrons
+## Why the periodic-table columns relate to valence electrons
 
 For the **s and p blocks**, the group structure maps particularly cleanly onto the number of outer-shell electrons.
 
 ### s block
 
 - Group 1 → $ns^1$
-
 - Group 2 → $ns^2$
-
 
 ### p block
 
@@ -252,9 +217,7 @@ $ns^2np^6$
 
 This produces the familiar main-group relationship between position in the periodic table and number of valence electrons.
 
----
-
-# Transition metals: the rule becomes broader, not meaningless
+## Transition metals: the rule becomes broader, not meaningless
 
 For transition metals, "valence electrons" cannot simply mean **electrons in the outermost principal shell**.
 
@@ -290,9 +253,7 @@ A better interpretation for transition metals is approximately:
 
 Not all of these electrons necessarily participate in every reaction, which is why transition metals have multiple oxidation states.
 
----
-
-## Iron as an example
+### Iron as an example
 
 Iron is
 
@@ -305,15 +266,11 @@ Its two 4s electrons are outermost, but its six 3d electrons are energetically c
 Common oxidation states illustrate this:
 
 - Fe²⁺: primarily loss of the two 4s electrons.
-
 - Fe³⁺: loss of the two 4s electrons plus one 3d electron.
-
 
 Thus transition-metal oxidation states arise partly because different nearby subshells can contribute electrons.
 
----
-
-## Copper and zinc
+### Copper and zinc
 
 Late transition metals become somewhat cleaner again.
 
@@ -328,40 +285,29 @@ $[\mathrm{Ar}]\,3d^{10}4s^2$
 Their filled $3d^{10}$ subshell is relatively stable, so the outer s electrons become especially important.
 This makes groups 11 and 12 look more like the simple main-group pattern again, although transition-metal chemistry still has important exceptions.
 
----
-
-# The f block
+## The f block
 
 The same basic principles continue into the lanthanides and actinides, but the energetic situation becomes even more complicated.
 
 Here the relevant states include:
 
 - outer s orbitals,
-
 - nearby d orbitals,
-
 - partially filled 4f or 5f orbitals.
-
 
 These subshells can be relatively close in energy, and their participation in bonding varies.
 
 This helps explain why:
 
 - lanthanides have very similar chemistry to one another;
-
 - multiple oxidation states occur;
-
 - magnetic behaviour can be unusual;
-
 - actinide chemistry is especially complicated.
-
 
 Again, this is not a breakdown of quantum structure.
 It is the consequence of **several allowed quantum states having similar energies**.
 
----
-
-# Overall picture
+## Overall picture
 
 The useful mental model is:
 

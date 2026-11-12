@@ -1,10 +1,10 @@
 ---
 title: Buck and Boost Converters
 tags:
-- technical
-- electronics
-- hardware
-- power
+  - technical
+  - electronics
+  - hardware
+  - power
 author: viktor
 ---
 
@@ -34,8 +34,6 @@ Therefore:
 **Changing magnetic field → induced voltage → current, if a closed path exists**
 
 This is the basis of inductors, generators, and transformers.
-
----
 
 ## Why an inductor opposes changes in current
 
@@ -104,8 +102,6 @@ When the field collapses, this stored energy is returned to the circuit.
     **An inductor acts like a buffer for current:** it absorbs energy when current tries to increase and releases that energy when current tries to decrease, smoothing rapid changes in current.
     **Like inflating a balloon:** while you blow into it, some energy goes into stretching it; when you stop blowing, the balloon releases that stored energy and keeps air flowing for a while.
 
----
-
 ## The capacitor as a voltage buffer
 
 Just as an **inductor acts as a buffer for current**, a **capacitor acts as a buffer for voltage**.
@@ -126,8 +122,6 @@ Therefore:
 In a switching converter, the inductor keeps the current relatively smooth between switching cycles, while the capacitor keeps the output voltage relatively smooth.
 
 Together, they turn the rapidly switched waveform into a nearly steady DC output.
-
----
 
 ## Buck converter
 
@@ -219,8 +213,6 @@ $$
 Reducing voltage therefore allows greater output current.
 This is why switching converters can be much more efficient than linear regulators.
 
----
-
 ## Boost converter
 
 A boost converter uses the same magnetic-energy-storage principle to produce a voltage **higher** than its input.
@@ -251,8 +243,6 @@ Thus:
 
 !!! note
     **Buck:** the inductor keeps supplying current while the input is periodically disconnected; **boost:** the stored energy is released so that the inductor's induced voltage adds to the input voltage.
-
----
 
 ## Boost converter vs transformer
 
@@ -290,8 +280,6 @@ A boost converter normally uses one inductor and deliberately:
 Its conversion ratio is controlled primarily by **switching duty cycle**, rather than a winding turns ratio.
 
 Both approximately trade voltage against current while conserving power.
-
----
 
 ## Mental model
 

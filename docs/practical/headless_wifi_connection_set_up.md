@@ -1,14 +1,15 @@
 ---
 title: Headless Wi-Fi Setup for Raspberry Pi
 tags:
-- technical
-- raspberry-pi
-- wifi
-- setup
-- headless
-- cloud-init
+  - technical
+  - raspberry-pi
+  - wifi
+  - setup
+  - headless
+  - cloud-init
 author: viktor
 ---
+
 # Headless Wi-Fi Setup for Raspberry Pi
 
 A guide for setting up Wi-Fi and SSH on a Raspberry Pi without a monitor or keyboard, using the Raspberry Pi Imager's initial configuration feature.
@@ -163,12 +164,10 @@ runcmd:
   - systemctl start ssh           # Start SSH service immediately
 ```
 
-
 !!! warning
     The first line **must** be exactly `#cloud-config` (no spaces before it).
     This is a special directive that tells cloud-init to process the file.
     Without it, cloud-init will ignore the configuration.
-
 
 **Key settings explained:**
 

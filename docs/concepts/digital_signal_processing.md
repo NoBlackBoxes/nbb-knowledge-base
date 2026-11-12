@@ -18,8 +18,6 @@ To store it digitally, we must discretise it in two dimensions:
     Sampling rate determines **how often we measure** the signal.
     Bit depth determines **how precisely we can represent the amplitude** of each measurement.
 
----
-
 ## Sampling rate
 
 A sampling rate of **30 kHz** means:
@@ -41,8 +39,6 @@ So for one channel:
 - 1 second → 30,000 samples
 - 1 minute → 1,800,000 samples
 - 1 hour → 108,000,000 samples
-
----
 
 ## Bit depth and amplitude resolution
 
@@ -95,8 +91,6 @@ More bits therefore mean **finer amplitude resolution**.
     Increasing the sampling rate gives more measurements **along time**.
     Increasing the ADC bit depth gives more possible values **along amplitude**.
 
----
-
 ## Quantisation
 
 The actual analogue voltage will usually fall between the ADC's available digital levels.
@@ -115,8 +109,6 @@ $$
 $$
 
 The exact mapping depends on the ADC architecture and coding convention, but this is the useful intuition.
-
----
 
 ## What does a binary number mean?
 
@@ -138,7 +130,7 @@ For example:
 
 Decimal:
 
-```
+```text
 347
 
 = 3×100 + 4×10 + 7×1
@@ -147,7 +139,7 @@ Decimal:
 
 Binary:
 
-```
+```text
 2³ = 8
 2² = 4
 2¹ = 2
@@ -233,8 +225,6 @@ $$
     The binary representation **is the number internally**.
     Decimal notation is primarily a human-readable representation.
 
----
-
 ## Signed integers
 
 Electrophysiology signals can be positive or negative relative to a reference.
@@ -248,8 +238,6 @@ $$
 This is still exactly $2^{16}=65,536$ possible bit patterns.
 
 The same 16-bit pattern can therefore represent a different numerical value depending on whether software interprets it as **unsigned** or **signed**.
-
----
 
 ## What does the ADC actually do?
 
@@ -273,8 +261,6 @@ The stored number is an **ADC count/code**, not inherently a voltage such as `37
 
 Calibration and gain information allow software to convert the stored number into physical voltage units later.
 
----
-
 ## Physical representation of bits
 
 At the physical level, bits correspond to distinguishable electronic states.
@@ -295,8 +281,6 @@ Different technologies implement memory cells differently:
 - **Flash:** charge stored in specialised transistor structures; modern flash can encode multiple bits per cell
 
 So a 16-bit number corresponds conceptually to **16 binary storage positions**, but not necessarily exactly 16 physical transistors.
-
----
 
 ## Sampling rate and Nyquist
 
@@ -323,8 +307,6 @@ f_N=15\text{ kHz}
 $$
 
 Therefore frequencies above 15 kHz cannot be uniquely represented by samples taken at 30 kHz and must normally be removed by an **anti-aliasing filter before sampling**.
-
----
 
 ## Aliasing
 
@@ -358,8 +340,6 @@ This is fundamentally different from poor bit depth.
 - **Low sampling rate:** uncertainty/error in **time/frequency content**
 
 Increasing bit depth cannot fix aliasing.
-
----
 
 ## Data size
 
@@ -398,8 +378,6 @@ Approximately:
 
 Doubling the storage representation from 16 to 32 bits therefore **doubles the data size**.
 
----
-
 ## Neuropixels example
 
 For 384 channels sampled at 30 kHz and stored as 16-bit values:
@@ -421,8 +399,6 @@ This gives roughly:
 | 1 hour | 82.9 GB | 165.9 GB |
 
 These are approximate decimal sizes and ignore file headers and other overhead.
-
----
 
 ## ADC resolution is not the same as storage bit depth
 
@@ -457,8 +433,6 @@ Neuropixels raw data are commonly stored as **16-bit integers**, even though the
 
 During analysis, software may convert the raw integer values to `float32` for filtering, scaling, whitening and other mathematical operations.
 This approximately doubles RAM requirements relative to `int16`, but it does **not** increase the precision of the original measurement.
-
----
 
 ## The complete picture
 

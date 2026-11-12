@@ -1,10 +1,10 @@
 ---
 title: Pulse Width Modulation
 tags:
-- technical
-- arduino
-- electronics
-- hardware
+  - technical
+  - arduino
+  - electronics
+  - hardware
 author: viktor
 ---
 
@@ -41,7 +41,6 @@ Thus, 50% duty cycle has an average of 2.5 V.
     It is rapidly switching between 0 V and 5 V.
     2.5 V is its **time average**.
 
-
 The **time-averaged voltage** is a mathematical average, not a voltage the PWM pin actually produces.
 It is useful because systems that respond slowly compared with the PWM switching can respond approximately to this average.
 We call the resulting response the **effective output level**.
@@ -51,8 +50,6 @@ For example, a 50% duty cycle can produce approximately half the average light o
 !!! note
     The effective response depends on the system.
     Half the average voltage does not necessarily mean half the motor speed, perceived brightness, or electrical power.
-
----
 
 ## Creating a changing analog-like signal
 
@@ -75,8 +72,6 @@ Normally:
 
 This is conceptually related to sampling: the desired waveform must be represented by sufficiently many PWM cycles.
 In practice, the PWM frequency is usually **much higher** than the desired signal frequency, not merely above the Nyquist limit.
-
----
 
 ## Something has to average the PWM
 
@@ -113,8 +108,6 @@ low-pass filtering / physical inertia / perception
 smooth response
 ```
 
----
-
 ## RC low-pass filter
 
 A simple electrical solution is an **RC (resistor-capacitor) low-pass filter**:
@@ -150,8 +143,6 @@ For PWM reconstruction, the cutoff is chosen so that the **desired slow-changing
 
 There is a trade-off: stronger filtering reduces PWM ripple but can also make the reconstructed signal respond more slowly and introduce attenuation/phase lag.
 
----
-
 ## Frequency-domain interpretation
 
 A PWM waveform contains many frequency components.
@@ -165,8 +156,6 @@ A low-pass filter therefore suppresses the high-frequency switching components w
     The filter is **not performing a Fourier transform**.
     Fourier analysis is a mathematical way of understanding what the filter does.
     An RC circuit physically performs the filtering through capacitor charging and discharging.
-
----
 
 ## The eye as a low-pass filter
 
@@ -185,8 +174,6 @@ This means that with PWM LED dimming:
 
 Bright-light **afterimages** are related to the broader fact that vision has temporal memory, but they involve stronger and slower retinal/neural adaptation.
 They are not the mechanism responsible for ordinary PWM flicker fusion.
-
----
 
 ## Key idea
 

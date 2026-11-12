@@ -1,10 +1,10 @@
 ---
 title: Arduino Programming
 tags:
-- technical
-- arduino
-- programming
-- hardware
+  - technical
+  - arduino
+  - programming
+  - hardware
 author: viktor
 ---
 
@@ -13,11 +13,13 @@ author: viktor
 ## 1. What Arduino Is
 
 **Arduino = microcontroller + simple programming environment**
+
 - Runs small programs called **sketches**
 - Written in **C/C++-like syntax**
 - Designed for **hardware interaction**
 
 Examples of what Arduino controls:
+
 - LEDs
 - motors
 - sensors
@@ -44,6 +46,7 @@ void loop() {
 Runs **once** when the board powers on.
 
 Used for:
+
 - configuring pins
 - starting serial communication
 - initializing sensors
@@ -124,6 +127,7 @@ int buttonState = 0;
 ```
 
 Common types:
+
 - `int`
 - `float`
 - `bool`
@@ -151,6 +155,7 @@ for (int i = 0; i < 10; i++) {
 ```
 
 Used for:
+
 - blinking patterns
 - stepping motors
 - repeated measurements
@@ -165,7 +170,7 @@ int sensorValue = analogRead(A0);
 
 Range:
 
-```
+```text
 0–1023
 ```
 
@@ -177,7 +182,7 @@ analogWrite(9, 128);
 
 Range:
 
-```
+```text
 0–255
 ```
 
@@ -208,13 +213,13 @@ Serial.println(sensorValue);
 
     Arduino programming is mostly:
 
-    ```
+    ```text
     READ → DECIDE → ACT
     ```
 
     Example:
 
-    ```
+    ```text
     read sensor
     if condition true
     turn on motor
