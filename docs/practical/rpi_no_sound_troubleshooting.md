@@ -2,7 +2,6 @@
 title: Raspberry Pi MAX98357A I2S — No Sound
 tags:
   - technical
-  - arduino
   - raspberry-pi
   - audio
   - troubleshooting

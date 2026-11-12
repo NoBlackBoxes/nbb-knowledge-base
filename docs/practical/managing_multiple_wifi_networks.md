@@ -101,9 +101,9 @@ sudo nmcli connection add \
 
 **Quoting:**
 
-- **Identity and password:** Use **single quotes** (`'value'`) to prevent shell interpretation of special characters (@, $, spaces, etc.)
-- The `@` symbol in the identity requires quotes
-- If your password contains a single quote, escape it: `'pass'\''word'` or use double quotes: `"password"`
+- **Identity and password:** Use **single quotes** (`'value'`) to prevent shell interpretation of characters such as `$`, spaces, backticks, and backslashes.
+- The `@` symbol does not require quoting, but consistently quoting the complete identity is harmless.
+- If your password contains a single quote, use the interactive method below instead of placing the password in the command.
 
 **UCL-specific settings:**
 
@@ -111,7 +111,7 @@ sudo nmcli connection add \
 - **Anonymous identity:** `anonymous@ucl.ac.uk`
 - **CA certificate:** Uses system certificates (`/etc/ssl/certs/ca-certificates.crt`)
 
-#### Alternative: Interactive setup (prompts for password)
+#### Alternative: Prompt for the password when connecting
 
 If you prefer not to include the password in the command:
 
@@ -128,8 +128,8 @@ sudo nmcli connection add \
   802-1x.anonymous-identity 'anonymous@ucl.ac.uk' \
   802-1x.ca-cert /etc/ssl/certs/ca-certificates.crt
 
-# Then set the password separately (will prompt for it)
-sudo nmcli connection modify eduroam 802-1x.password
+# Connect and enter the missing password when prompted
+sudo nmcli --ask connection up eduroam
 ```
 
 #### Connect to eduroam
@@ -147,6 +147,11 @@ sudo nmcli connection modify eduroam connection.autoconnect yes connection.autoc
 ```
 
 #### Optional: Set server name verification (if certificate verification fails)
+
+!!! note
+    These are valid NetworkManager settings, but the configured domain must match the current UCL authentication-server certificate.
+    An incorrect value will prevent eduroam from authenticating.
+    Confirm the expected domain against current UCL guidance before applying either option.
 
 If you encounter certificate verification issues, you can specify the domain to match:
 
@@ -288,8 +293,9 @@ sudo nmcli connection modify netplan-wlan0-BT-9XCTRN connection.autoconnect yes 
 
 Behaviour:
 
-- Hotspot available → Pi switches to hotspot
-- Hotspot gone → Pi falls back to home Wi‑Fi
+- If the Pi is disconnected and both networks are available, NetworkManager prefers the profile with the higher priority.
+- If the Pi is already connected, the appearance of a higher-priority network does not trigger an automatic switch.
+- If the active network becomes unavailable, NetworkManager attempts to connect using the best available eligible profile.
 
 ## 4. Manually switching Wi‑Fi (immediate override)
 
@@ -337,14 +343,26 @@ nmcli device wifi list
 
 Many phone hotspots use **2.4 GHz channel 13**, which is blocked unless the country is set.
 
-Set once:
+Set the WLAN country persistently:
 
 ```bash
-sudo iw reg set GB
-sudo systemctl restart NetworkManager
+sudo raspi-config
+```
+
+Select **Localisation Options → WLAN Country**, then select the country in which the Pi is being used.
+For the United Kingdom, select `GB`.
+
+Verify the current regulatory domain with:
+
+```bash
+iw reg get
 ```
 
 ## 7. SSH access: connecting to the Pi
+
+!!! note
+    The behaviour below was observed with the networks and client setup used for this guide.
+    Hostname resolution and direct connectivity may vary with router configuration, mDNS support, WSL version, and network policy.
 
 ### 7.1 On home Wi‑Fi
 
@@ -362,11 +380,13 @@ ssh vplattner@raspberrypi
 ssh vplattner@192.168.1.224
 ```
 
-**Note:** `.local` hostname does NOT work on home Wi‑Fi.
+**Note:** `raspberrypi.local` did not resolve on the home network tested for this guide.
+This depends on mDNS support and may work on other home networks.
 
 ### 7.2 On phone hotspots
 
-Use **PowerShell or Windows Terminal**. WSL typically fails on phone hotspots.
+On the phone hotspot tested for this guide, SSH worked from PowerShell and Windows Terminal but not from WSL.
+WSL behaviour may vary with its networking mode and version.
 
 #### Best option (mDNS over IPv6)
 
@@ -374,7 +394,8 @@ Use **PowerShell or Windows Terminal**. WSL typically fails on phone hotspots.
 ssh vplattner@raspberrypi.local
 ```
 
-This resolves to an IPv6 link‑local address (`fe80::...`) and works on hotspots. Make sure your laptop is connected to the same hotspot as the Pi.
+In the tested setup, this resolved to an IPv6 link‑local address (`fe80::...`) and worked on the hotspot.
+Make sure your laptop is connected to the same hotspot as the Pi.
 
 #### IPv4 fallback (when IP is known)
 
@@ -382,53 +403,61 @@ This resolves to an IPv6 link‑local address (`fe80::...`) and works on hotspot
 ssh vplattner@10.85.82.194
 ```
 
-**Note:** Regular hostname (`raspberrypi`) typically does NOT work on hotspots.
+**Note:** The unqualified hostname `raspberrypi` did not resolve on the hotspot tested here.
+Use `raspberrypi.local` or the Pi's IP address instead.
 
 ### 7.3 On eduroam
 
-**Direct SSH does NOT work** on eduroam due to AP isolation (client-to-client communication is blocked).
+**Direct SSH was blocked between devices connected to UCL eduroam in the setup tested for this guide.**
+This appears to be caused by client isolation, which prevents direct communication between wireless clients.
+Use Pi Connect or another tunnel-based access method instead.
 
 **Use Pi Connect instead:**
 
 1. Set up Pi Connect on your Raspberry Pi
 2. Access the Pi via Pi Connect's remote shell feature from your laptop
-3. Pi Connect routes traffic through a cloud service, bypassing AP isolation
+3. Pi Connect routes traffic through a cloud service instead of relying on a direct connection between the devices
 
 **Alternative:** Use your phone hotspot when you need direct SSH access.
 
-**Note:** Even if you know the Pi's eduroam IP address (check with `hostname -I`), you cannot SSH directly to it from another device on eduroam.
+**Note:** In the tested UCL eduroam setup, direct SSH remained blocked even when the Pi's IP address was known.
+Check the Pi's IP address with `hostname -I`.
 
 ### 7.4 WSL limitations
 
-WSL works on **home Wi‑Fi** but typically fails on **phone hotspots** because:
+In the setup tested for this guide, WSL worked on **home Wi‑Fi** but not on the **phone hotspot**.
+Possible reasons include:
 
-- WSL is behind a NAT (`172.31.x.x`)
-- It cannot reliably reach IPv6 link‑local addresses (commonly used by hotspots)
+- WSL may be behind a NAT (`172.31.x.x`)
+- IPv6 link‑local connectivity may be limited
 - Hotspot client-to-client communication may be restricted
 
 **Recommendation:** Use PowerShell for SSH, especially when connecting via phone hotspots.
 
 ## 8. Quick reference: what works where
 
-**Critical requirement:** Both your laptop and Raspberry Pi must be connected to the same network (home Wi‑Fi or phone hotspot). **Note:** Direct SSH does not work on eduroam - use Pi Connect instead.
+This summary records the behaviour observed in the setup tested for this guide.
+
+**Critical requirement:** For direct local SSH, your laptop and Raspberry Pi must be connected to the same network (home Wi‑Fi or phone hotspot).
+Direct SSH was blocked on the tested UCL eduroam network, so use Pi Connect instead.
 
 **On home Wi‑Fi:**
 
 - PowerShell and WSL both work
 - Regular hostname (`raspberrypi`) works
 - IP address works
-- `.local` hostname does NOT work
+- `raspberrypi.local` did not resolve on the tested home network
 
 **On phone hotspots:**
 
 - PowerShell SSH works
 - `.local` hostname (IPv6 mDNS) works
 - Direct IPv4 SSH works if client‑to‑client traffic is allowed
-- WSL SSH typically fails
-- Regular hostname typically does NOT work
+- WSL SSH did not work in the tested hotspot setup
+- Regular hostname did not resolve in the tested hotspot setup
 
 **On eduroam:**
 
-- **Direct SSH does NOT work** (AP isolation blocks client-to-client communication)
+- **Direct SSH was blocked** on the tested UCL eduroam network
 - **Use Pi Connect** for remote shell access
 - Alternative: Switch to phone hotspot when direct SSH is needed
