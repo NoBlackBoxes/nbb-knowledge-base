@@ -14,7 +14,8 @@ author: viktor
 
 A **processor** is hardware that executes operations on data.
 
-The familiar **CPU (Central Processing Unit)** is a **general-purpose processor**. It is designed to perform many different kinds of operations:
+The familiar **CPU (Central Processing Unit)** is a **general-purpose processor**.
+It is designed to perform many different kinds of operations:
 
 - arithmetic
 - logic
@@ -61,7 +62,8 @@ where:
 A neural network may need millions or billions of these operations to process a single input.
 
 !!! info "Important"
-    There is no special "AI arithmetic". AI accelerators perform ordinary arithmetic, but their hardware is arranged specifically to perform the operations common in neural networks very efficiently.
+    There is no special "AI arithmetic".
+    AI accelerators perform ordinary arithmetic, but their hardware is arranged specifically to perform the operations common in neural networks very efficiently.
 
 ---
 
@@ -285,9 +287,7 @@ A TPU therefore contains hardware optimized for this type of computation.
 
 !!! info "Important"
     **NPU** is a broad generic term for neural-network acceleration.
-
     **TPU** is Google's terminology for its own family of machine-learning processors.
-
     They describe similar broad ideas but are not interchangeable names for identical hardware.
 
 ---
@@ -383,7 +383,8 @@ prediction
 
 This is called **inference**.
 
-The network is no longer learning its weights. It is using the already learned weights to process new data.
+The network is no longer learning its weights.
+It is using the already learned weights to process new data.
 
 The Coral Edge TPU is primarily an **inference accelerator**.
 
@@ -560,9 +561,7 @@ MCU
 
 !!! info "Important"
     **MCU and Cortex-M do not mean the same thing.**
-
     The MCU is the complete microcontroller chip.
-
     Cortex-M is a CPU core that can be included inside that chip.
 
 ---
@@ -675,11 +674,8 @@ versus:
 Cortex-M55 CPU + Ethos-U55 NPU
 ```
 
-Both use:
-
-> **general-purpose/control processor + specialized AI accelerator**
-
-but they target very different power and performance levels.
+!!! note
+    Both use a **general-purpose/control processor + specialized AI accelerator**, but they target very different power and performance levels.
 
 ---
 
@@ -712,13 +708,10 @@ A modern SoC might contain:
 
 Therefore, statements such as:
 
-> "This chip has a CPU, GPU and NPU"
-
-do not necessarily mean there are three physical chips.
-
-They may be three different **processing blocks inside one SoC**.
-
-Smartphone processors are good examples of this approach.
+!!! note
+    "This chip has a CPU, GPU and NPU" do not necessarily mean there are three physical chips.
+    They may be three different **processing blocks inside one SoC**.
+    Smartphone processors are good examples of this approach.
 
 ---
 
@@ -974,12 +967,15 @@ Example Coral system:
     - **GPU** = highly parallel processor originally designed for graphics, but very useful for neural-network computation.
     - **NPU** = generic term for a processor/accelerator specialized for neural networks.
     - **TPU** = Google's name for its family of specialized machine-learning processors.
-    - **MCU** = a small complete embedded computer on a chip. It contains a CPU and usually memory and peripherals.
+    - **MCU** = a small complete embedded computer on a chip.
+      It contains a CPU and usually memory and peripherals.
     - **SoC** = a chip integrating several major computer components, potentially including CPU, GPU and NPU.
     - **Cortex-M55** = an Arm CPU core designed for embedded systems, with strong vector/DSP/ML capabilities.
     - **Ethos-U55** = an Arm NPU designed to accelerate neural networks in embedded systems.
-    - **Coral Edge TPU** = Google's edge inference accelerator. It performs neural-network calculations alongside a host CPU.
+    - **Coral Edge TPU** = Google's edge inference accelerator.
+      It performs neural-network calculations alongside a host CPU.
 
 The central idea connecting all of these is simple:
 
-Neural networks require enormous numbers of relatively simple arithmetic operations. AI accelerators gain efficiency by dedicating large amounts of hardware to performing those operations in parallel.
+Neural networks require enormous numbers of relatively simple arithmetic operations.
+AI accelerators gain efficiency by dedicating large amounts of hardware to performing those operations in parallel.

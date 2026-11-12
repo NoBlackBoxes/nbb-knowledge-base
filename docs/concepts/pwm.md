@@ -33,25 +33,31 @@ $$
 V_{\mathrm{avg}} = D V_{\mathrm{max}}
 $$
 
-where $D$ is the duty cycle from 0 to 1. Thus, 50% duty cycle has an average of 2.5 V.
+where $D$ is the duty cycle from 0 to 1.
+Thus, 50% duty cycle has an average of 2.5 V.
 
 !!! info "Important"
-    The PWM pin is **not actually producing 2.5 V**. It is rapidly switching between 0 V and 5 V.  
+    The PWM pin is **not actually producing 2.5 V**.
+    It is rapidly switching between 0 V and 5 V.
     2.5 V is its **time average**.
 
 
-The **time-averaged voltage** is a mathematical average, not a voltage the PWM pin actually produces. It is useful because systems that respond slowly compared with the PWM switching can respond approximately to this average. We call the resulting response the **effective output level**.
+The **time-averaged voltage** is a mathematical average, not a voltage the PWM pin actually produces.
+It is useful because systems that respond slowly compared with the PWM switching can respond approximately to this average.
+We call the resulting response the **effective output level**.
 
 For example, a 50% duty cycle can produce approximately half the average light output of an LED, or a filtered voltage of 2.5 V from a 0–5 V PWM signal.
 
 !!! note
-    The effective response depends on the system. Half the average voltage does not necessarily mean half the motor speed, perceived brightness, or electrical power.
+    The effective response depends on the system.
+    Half the average voltage does not necessarily mean half the motor speed, perceived brightness, or electrical power.
 
 ---
 
 ## Creating a changing analog-like signal
 
-The duty cycle does not have to remain constant. It can be changed from one PWM period to the next.
+The duty cycle does not have to remain constant.
+It can be changed from one PWM period to the next.
 
 For example:
 
@@ -67,19 +73,22 @@ Normally:
 - the **duty cycle** changes
 - the carrier frequency is much higher than the frequency of the signal we want to reproduce
 
-This is conceptually related to sampling: the desired waveform must be represented by sufficiently many PWM cycles. In practice, the PWM frequency is usually **much higher** than the desired signal frequency, not merely above the Nyquist limit.
+This is conceptually related to sampling: the desired waveform must be represented by sufficiently many PWM cycles.
+In practice, the PWM frequency is usually **much higher** than the desired signal frequency, not merely above the Nyquist limit.
 
 ---
 
 ## Something has to average the PWM
 
-PWM by itself is still just a sequence of square pulses. To obtain a smooth physical response, something must effectively **low-pass filter** those pulses.
+PWM by itself is still just a sequence of square pulses.
+To obtain a smooth physical response, something must effectively **low-pass filter** those pulses.
 
 Different systems provide this naturally.
 
 **LED:** the LED really does flash ON and OFF, but the visual system cannot follow sufficiently rapid changes, so we perceive an average brightness.
 
-**Motor:** the electrical and mechanical system cannot instantaneously respond to every pulse. Motor inductance smooths current, while the rotor's mechanical inertia smooths changes in speed and torque.
+**Motor:** the electrical and mechanical system cannot instantaneously respond to every pulse.
+Motor inductance smooths current, while the rotor's mechanical inertia smooths changes in speed and torque.
 
 **Analog voltage:** an electrical low-pass filter can convert the PWM into a relatively smooth voltage.
 
@@ -118,7 +127,8 @@ PWM ── R ──┬── output
            GND
 ```
 
-The capacitor stores charge, so its voltage cannot change instantaneously. It **charges during ON pulses and discharges during OFF periods**.
+The capacitor stores charge, so its voltage cannot change instantaneously.
+It **charges during ON pulses and discharges during OFF periods**.
 
 The resistor limits the charging/discharging current and therefore controls how quickly the capacitor voltage can change.
 
@@ -144,14 +154,16 @@ There is a trade-off: stronger filtering reduces PWM ripple but can also make th
 
 ## Frequency-domain interpretation
 
-A PWM waveform contains many frequency components. Its sharp transitions require substantial **high-frequency content**.
+A PWM waveform contains many frequency components.
+Its sharp transitions require substantial **high-frequency content**.
 
 The useful slowly changing information encoded by the duty cycle is at much lower frequencies, while much of the PWM switching energy is around the carrier frequency and its harmonics.
 
 A low-pass filter therefore suppresses the high-frequency switching components while retaining the desired low-frequency behaviour.
 
 !!! note
-    The filter is **not performing a Fourier transform**. Fourier analysis is a mathematical way of understanding what the filter does.  
+    The filter is **not performing a Fourier transform**.
+    Fourier analysis is a mathematical way of understanding what the filter does.
     An RC circuit physically performs the filtering through capacitor charging and discharging.
 
 ---
@@ -160,13 +172,19 @@ A low-pass filter therefore suppresses the high-frequency switching components w
 
 The visual system also has a limited temporal response.
 
-Photoreceptors and subsequent neural processing do not respond and recover instantaneously. If an LED flashes rapidly enough, the response to one flash has not completely disappeared before the next arrives. The responses therefore overlap, and we perceive relatively continuous illumination.
+Photoreceptors and subsequent neural processing do not respond and recover instantaneously.
+If an LED flashes rapidly enough, the response to one flash has not completely disappeared before the next arrives.
+The responses therefore overlap, and we perceive relatively continuous illumination.
 
 This means that with PWM LED dimming:
 
-> The **light itself is still pulsing**. A sufficiently fast photodiode or camera can detect the ON/OFF modulation. It is our visual system that makes it appear continuous and interprets different duty cycles as different brightnesses.
+!!! note
+    The **light itself is still pulsing**.
+    A sufficiently fast photodiode or camera can detect the ON/OFF modulation.
+    It is our visual system that makes it appear continuous and interprets different duty cycles as different brightnesses.
 
-Bright-light **afterimages** are related to the broader fact that vision has temporal memory, but they involve stronger and slower retinal/neural adaptation. They are not the mechanism responsible for ordinary PWM flicker fusion.
+Bright-light **afterimages** are related to the broader fact that vision has temporal memory, but they involve stronger and slower retinal/neural adaptation.
+They are not the mechanism responsible for ordinary PWM flicker fusion.
 
 ---
 
@@ -174,6 +192,5 @@ Bright-light **afterimages** are related to the broader fact that vision has tem
 
 !!! abstract "Summary"
     **PWM does not make a digital signal analog.**
-
-    It encodes an effective level in the **timing of full-amplitude pulses**.  
+    It encodes an effective level in the **timing of full-amplitude pulses**.
     A low-pass filter, physical inertia, or a sensory system then averages those rapid changes, producing a smooth response.

@@ -12,7 +12,8 @@ author: viktor
 
 ## The key electromagnetic ideas
 
-A current flowing through a conductor creates a **magnetic field**. In a coil, the fields produced by each turn reinforce one another, so an inductor can store significant energy in its magnetic field.
+A current flowing through a conductor creates a **magnetic field**.
+In a coil, the fields produced by each turn reinforce one another, so an inductor can store significant energy in its magnetic field.
 
 $$
 E_L = \frac{1}{2} L I^2
@@ -23,7 +24,8 @@ The inverse relationship needs an important distinction:
 !!! info "Important"
     A **changing magnetic field induces a voltage**, not directly a current.
 
-If the circuit is closed, this induced voltage can then drive a current. If the circuit is open, there can be an induced voltage but no current.
+If the circuit is closed, this induced voltage can then drive a current.
+If the circuit is open, there can be an induced voltage but no current.
 
 Therefore:
 
@@ -37,14 +39,19 @@ This is the basis of inductors, generators, and transformers.
 
 ## Why an inductor opposes changes in current
 
-An inductor does not oppose current itself. It opposes **changes in current**.
+An inductor does not oppose current itself.
+It opposes **changes in current**.
 
-When current flows through an inductor, it creates a magnetic field. If the current changes, the magnetic field also changes. This changing magnetic field induces a voltage across the inductor.
+When current flows through an inductor, it creates a magnetic field.
+If the current changes, the magnetic field also changes.
+This changing magnetic field induces a voltage across the inductor.
 
 The induced voltage always acts in a direction that **opposes the change in current**:
 
-- If current is **increasing**, the magnetic field grows and the induced voltage acts against the voltage causing the increase. This slows down the increase in current.
-- If current is **decreasing**, the magnetic field collapses and the induced voltage changes polarity, pushing current in its original direction. This slows down the decrease in current.
+- If current is **increasing**, the magnetic field grows and the induced voltage acts against the voltage causing the increase.
+  This slows down the increase in current.
+- If current is **decreasing**, the magnetic field collapses and the induced voltage changes polarity, pushing current in its original direction.
+  This slows down the decrease in current.
 
 This relationship is described by:
 
@@ -67,7 +74,8 @@ Therefore:
 
 A useful way to remember this is:
 
-> **An inductor generates a voltage with a polarity that tries to keep its current from changing.**
+!!! note
+    **An inductor generates a voltage with a polarity that tries to keep its current from changing.**
 
 This explains both sides of its behaviour:
 
@@ -93,7 +101,8 @@ $$
 When the field collapses, this stored energy is returned to the circuit.
 
 !!! tip "Intuition"
-    **An inductor acts like a buffer for current:** it absorbs energy when current tries to increase and releases that energy when current tries to decrease, smoothing rapid changes in current. **Like inflating a balloon:** while you blow into it, some energy goes into stretching it; when you stop blowing, the balloon releases that stored energy and keeps air flowing for a while.
+    **An inductor acts like a buffer for current:** it absorbs energy when current tries to increase and releases that energy when current tries to decrease, smoothing rapid changes in current.
+    **Like inflating a balloon:** while you blow into it, some energy goes into stretching it; when you stop blowing, the balloon releases that stored energy and keeps air flowing for a while.
 
 ---
 
@@ -101,7 +110,8 @@ When the field collapses, this stored energy is returned to the circuit.
 
 Just as an **inductor acts as a buffer for current**, a **capacitor acts as a buffer for voltage**.
 
-A capacitor stores energy in an **electric field**. It charges when the circuit supplies more current than the load needs and discharges when the load needs more current than is currently being supplied.
+A capacitor stores energy in an **electric field**.
+It charges when the circuit supplies more current than the load needs and discharges when the load needs more current than is currently being supplied.
 
 This prevents the output voltage from changing rapidly:
 
@@ -110,9 +120,8 @@ This prevents the output voltage from changing rapidly:
 
 Therefore:
 
-> **Inductor → smooths current**
->
-> **Capacitor → smooths voltage**
+!!! note
+    **Inductor → smooths current; capacitor → smooths voltage.**
 
 In a switching converter, the inductor keeps the current relatively smooth between switching cycles, while the capacitor keeps the output voltage relatively smooth.
 
@@ -164,11 +173,13 @@ $$
 
 So the buck converter can be thought of as:
 
-> **PWM + energy-storing inductor + smoothing capacitor**
+!!! note
+    **PWM + energy-storing inductor + smoothing capacitor**
 
 The **duty cycle primarily determines the output voltage**.
 
-The inductor value does *not* directly set the output voltage. Instead, it determines how quickly current can change and therefore strongly affects current ripple, operating mode, and transient behaviour.
+The inductor value does *not* directly set the output voltage.
+Instead, it determines how quickly current can change and therefore strongly affects current ripple, operating mode, and transient behaviour.
 
 From
 
@@ -205,7 +216,8 @@ $$
 V_{in} I_{in} \approx V_{out} I_{out}
 $$
 
-Reducing voltage therefore allows greater output current. This is why switching converters can be much more efficient than linear regulators.
+Reducing voltage therefore allows greater output current.
+This is why switching converters can be much more efficient than linear regulators.
 
 ---
 
@@ -237,9 +249,8 @@ The combined voltage charges the output capacitor to a voltage higher than $V_{i
 
 Thus:
 
-> **Buck:** the inductor keeps supplying current while the input is periodically disconnected.
->
-> **Boost:** the stored energy is released so that the inductor's induced voltage adds to the input voltage.
+!!! note
+    **Buck:** the inductor keeps supplying current while the input is periodically disconnected; **boost:** the stored energy is released so that the inductor's induced voltage adds to the input voltage.
 
 ---
 
@@ -263,7 +274,8 @@ $$
 \frac{V_2}{V_1} = \frac{N_2}{N_1}
 $$
 
-A transformer requires a **changing current/flux**. Steady DC produces a steady magnetic field and therefore does not continuously induce a secondary voltage.
+A transformer requires a **changing current/flux**.
+Steady DC produces a steady magnetic field and therefore does not continuously induce a secondary voltage.
 
 An ideal transformer mainly **transfers energy magnetically from one winding to another** rather than deliberately storing energy between switching phases.
 
@@ -298,7 +310,9 @@ Both approximately trade voltage against current while conserving power.
 This resolves an important common confusion:
 
 !!! info "Important"
-    Moving a magnet through a coil does not fundamentally "generate current." The changing magnetic flux induces a **voltage**. Current flows only when there is a closed circuit.
+    Moving a magnet through a coil does not fundamentally "generate current."
+    The changing magnetic flux induces a **voltage**.
+    Current flows only when there is a closed circuit.
 
 From this, switching converters become fairly intuitive:
 

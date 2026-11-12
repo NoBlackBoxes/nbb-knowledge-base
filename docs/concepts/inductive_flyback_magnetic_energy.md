@@ -6,13 +6,17 @@ author: viktor
 
 ## 1. How a coil stores energy
 
-When electric current flows through a wire, it creates a magnetic field. Winding the wire into a coil concentrates this field.
+When electric current flows through a wire, it creates a magnetic field.
+Winding the wire into a coil concentrates this field.
 
-A motor contains coils (windings), so it behaves partly like an **inductor**. As current increases, energy is stored in the magnetic field. When current decreases, that energy can be returned to the electrical circuit.
+A motor contains coils (windings), so it behaves partly like an **inductor**.
+As current increases, energy is stored in the magnetic field.
+When current decreases, that energy can be returned to the electrical circuit.
 
 ### Inductance
 
-**Inductance ($L$)** describes how strongly a component resists changes in current. It is measured in **henries (H)**.
+**Inductance ($L$)** describes how strongly a component resists changes in current.
+It is measured in **henries (H)**.
 
 - 1 H = 1 henry
 - 1 mH = 0.001 H
@@ -38,9 +42,11 @@ E = \frac{1}{2}\times0.001\times0.2^2
 = 0.00002\text{ J} = 20\,\mu\text{J}
 $$
 
-That's just 20 microjoules (millionths of a joule). But even this small amount of energy can generate a surprisingly high voltage.
+That's just 20 microjoules (millionths of a joule).
+But even this small amount of energy can generate a surprisingly high voltage.
 
-Notice that energy depends on the **square of the current**. Doubling the current quadruples the stored energy, assuming constant inductance.
+Notice that energy depends on the **square of the current**.
+Doubling the current quadruples the stored energy, assuming constant inductance.
 
 ---
 
@@ -58,9 +64,11 @@ The motor's windings store some energy in their magnetic fields.
 
 ### The moment the MOSFET switches off
 
-The normal current path is interrupted. But an inductor has an important property:
+The normal current path is interrupted.
+But an inductor has an important property:
 
-> **Current through an ideal inductor cannot change instantaneously without an infinite voltage.**
+!!! note
+    **Current through an ideal inductor cannot change instantaneously without an infinite voltage.**
 
 If the motor was carrying 200 mA immediately before switching off, the inductive current initially remains approximately 200 mA.
 
@@ -89,7 +97,8 @@ Where:
 - $L$ = inductance, in henries (H)
 - $dI/dt$ = rate of change of current, in amperes per second (A/s)
 
-The sign of the voltage depends on the chosen polarity. For understanding the spike, we can work with magnitudes:
+The sign of the voltage depends on the chosen polarity.
+For understanding the spike, we can work with magnitudes:
 
 $$
 |V_L| = L\left|\frac{dI}{dt}\right|
@@ -109,7 +118,8 @@ If the decrease is approximately uniform:
 | 1 millisecond | 1 V |
 | 1 microsecond | 1,000 V |
 
-The total current change is identical. Only the time differs.
+The total current change is identical.
+Only the time differs.
 
 **The faster the current changes, the greater the voltage across the inductance.**
 
@@ -117,15 +127,18 @@ The total current change is identical. Only the time differs.
 
 Switching off the MOSFET does not instantly force the motor current to zero.
 
-Instead, switching changes the available current paths. The inductance and the surrounding circuit jointly determine how the voltage rises and how quickly the current decreases.
+Instead, switching changes the available current paths.
+The inductance and the surrounding circuit jointly determine how the voltage rises and how quickly the current decreases.
 
 The voltage and rate of current change are linked; one does not happen independently before the other.
 
 ### An analogy: Water flowing through a pipe
 
-Imagine water flowing through a long pipe. The moving water has inertia.
+Imagine water flowing through a long pipe.
+The moving water has inertia.
 
-If you suddenly close a valve, the water cannot stop instantly. A pressure surge develops — a phenomenon called *water hammer*.
+If you suddenly close a valve, the water cannot stop instantly.
+A pressure surge develops — a phenomenon called *water hammer*.
 
 The analogy is useful:
 
@@ -144,11 +157,13 @@ A 6 V battery can be part of a circuit that briefly develops tens or hundreds of
 
 This does **not** mean energy has been created from nothing.
 
-The battery previously supplied energy that was stored in the motor's magnetic field. During switching, that energy is transferred or dissipated.
+The battery previously supplied energy that was stored in the motor's magnetic field.
+During switching, that energy is transferred or dissipated.
 
 The crucial distinction is:
 
-> **Voltage is energy per unit charge, not the total amount of energy available.**
+!!! note
+    **Voltage is energy per unit charge, not the total amount of energy available.**
 
 ### What does voltage actually measure?
 
@@ -393,7 +408,8 @@ $$
 V \approx 632\text{ V}
 $$
 
-This is an idealised voltage swing, **not a prediction for our actual motor circuit**. Real capacitances are nonlinear, the drain is initially at a nonzero voltage, and other components may conduct or break down first.
+This is an idealised voltage swing, **not a prediction for our actual motor circuit**.
+Real capacitances are nonlinear, the drain is initially at a nonzero voltage, and other components may conduct or break down first.
 
 It demonstrates why even a small amount of magnetic energy can create a large voltage across a tiny capacitance.
 
@@ -428,7 +444,8 @@ The current now circulates:
 
 **Motor → flyback diode → motor**
 
-The diode returns current to the positive supply node, which is also connected to the battery's positive terminal. However, the current then flows back through the motor windings, completing a local loop rather than passing through the battery.
+The diode returns current to the positive supply node, which is also connected to the battery's positive terminal.
+However, the current then flows back through the motor windings, completing a local loop rather than passing through the battery.
 
 The current gradually decreases as the stored energy is dissipated.
 
@@ -446,7 +463,8 @@ Instead of rising to potentially destructive voltages, the drain stays close to 
 
 The exact value depends on the diode and current.
 
-**The diode doesn't prevent induction. It gives the current a path that limits the voltage required to sustain it.**
+**The diode doesn't prevent induction.
+It gives the current a path that limits the voltage required to sustain it.**
 
 ### Why not connect the diode to ground?
 
@@ -522,7 +540,8 @@ After one time constant, the current has fallen to approximately 37% of its init
 - Higher resistance → shorter time constant → faster current decay.
 - Lower resistance → longer time constant → slower current decay.
 
-This simple exponential model assumes a fixed resistance and inductance without a constant diode voltage drop. Real flyback circuits differ somewhat.
+This simple exponential model assumes a fixed resistance and inductance without a constant diode voltage drop.
+Real flyback circuits differ somewhat.
 
 ### An important consequence
 
@@ -536,7 +555,8 @@ This is why adding a resistor isn't automatically a safe way to protect an LED f
 
 ## 7. Can we use an LED as a flyback indicator?
 
-An LED is a light-emitting diode. Like an ordinary diode, it conducts primarily in one direction, but it also emits light when sufficient forward current flows.
+An LED is a light-emitting diode.
+Like an ordinary diode, it conducts primarily in one direction, but it also emits light when sufficient forward current flows.
 
 In principle, an LED could briefly illuminate as the motor's stored magnetic energy is released.
 
@@ -554,7 +574,8 @@ The relevant limits depend on the LED's continuous-current rating, pulsed-curren
 
 ### Adding a resistor creates a trade-off
 
-A series resistor makes the current decay faster, but doesn't eliminate the initial current peak. It also increases the voltage the MOSFET must withstand.
+A series resistor makes the current decay faster, but doesn't eliminate the initial current peak.
+It also increases the voltage the MOSFET must withstand.
 
 ### Keeping the ordinary diode in series with the LED
 
@@ -575,7 +596,8 @@ $$
 V_{\text{drain}}\approx8.7\text{ V}
 $$
 
-This is only an approximate clamp voltage while the diodes conduct. The LED still has to withstand the initial motor current.
+This is only an approximate clamp voltage while the diodes conduct.
+The LED still has to withstand the initial motor current.
 
 **A diode in series with an LED does not limit the current.**
 
@@ -626,13 +648,21 @@ Nevertheless, the flyback principle remains the same.
 
 Imagine the motor is running from a 6 V supply.
 
-1. **Current flows.** The motor's windings create a magnetic field and store energy.
-2. **The MOSFET switches off.** The normal current path disappears.
-3. **The inductance resists the current change.** The current cannot stop instantaneously.
-4. **The drain voltage rises.** The changing magnetic field produces the voltage required by the evolving circuit conditions.
-5. **Another path carries the current.** Ideally, this is the flyback diode. Otherwise, capacitances, avalanche breakdown or other mechanisms may become involved.
-6. **The current decays.** The stored magnetic energy is transferred or dissipated.
-7. **The voltage returns towards its normal level.** Once the inductive transient has ended, the flyback diode stops conducting.
+1. **Current flows.**
+   The motor's windings create a magnetic field and store energy.
+2. **The MOSFET switches off.**
+   The normal current path disappears.
+3. **The inductance resists the current change.**
+   The current cannot stop instantaneously.
+4. **The drain voltage rises.**
+   The changing magnetic field produces the voltage required by the evolving circuit conditions.
+5. **Another path carries the current.**
+   Ideally, this is the flyback diode.
+   Otherwise, capacitances, avalanche breakdown or other mechanisms may become involved.
+6. **The current decays.**
+   The stored magnetic energy is transferred or dissipated.
+7. **The voltage returns towards its normal level.**
+   Once the inductive transient has ended, the flyback diode stops conducting.
 
 ### The essential relationships
 
@@ -648,9 +678,11 @@ Imagine the motor is running from a 6 V supply.
 
 Think of inductance as electrical inertia.
 
-A moving object resists a sudden change in velocity. Similarly, current through an inductor resists a sudden change.
+A moving object resists a sudden change in velocity.
+Similarly, current through an inductor resists a sudden change.
 
-When the MOSFET switches off, the current doesn't simply disappear. The stored magnetic energy continues to drive it.
+When the MOSFET switches off, the current doesn't simply disappear.
+The stored magnetic energy continues to drive it.
 
 If a low-voltage path exists, the current decays relatively slowly.
 
@@ -658,4 +690,5 @@ If the path requires a higher voltage, the voltage can rise dramatically and the
 
 If no suitable path exists, the voltage may rise until capacitance, breakdown or another physical mechanism accommodates the current.
 
-**The energy was already stored in the magnetic field. The circuit determines how that energy is released, how quickly the current changes, and how high the voltage rises.**
+**The energy was already stored in the magnetic field.
+The circuit determines how that energy is released, how quickly the current changes, and how high the voltage rises.**

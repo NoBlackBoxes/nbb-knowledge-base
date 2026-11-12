@@ -8,14 +8,14 @@ author: viktor
 
 # Digital Sampling, Bit Depth, ADCs and Data Size
 
-An electrophysiology signal starts as a **continuous analogue voltage signal**. To store it digitally, we must discretise it in two dimensions:
+An electrophysiology signal starts as a **continuous analogue voltage signal**.
+To store it digitally, we must discretise it in two dimensions:
 
 - **Sampling rate** discretises **time** (x-axis).
 - **Bit depth / ADC resolution** discretises **amplitude** (y-axis).
 
 !!! info "Important"
     Sampling rate determines **how often we measure** the signal.
-
     Bit depth determines **how precisely we can represent the amplitude** of each measurement.
 
 ---
@@ -93,7 +93,6 @@ More bits therefore mean **finer amplitude resolution**.
 
 !!! info "Important"
     Increasing the sampling rate gives more measurements **along time**.
-
     Increasing the ADC bit depth gives more possible values **along amplitude**.
 
 ---
@@ -102,7 +101,8 @@ More bits therefore mean **finer amplitude resolution**.
 
 The actual analogue voltage will usually fall between the ADC's available digital levels.
 
-The ADC therefore assigns it to an appropriate discrete code. This process is called **quantisation**.
+The ADC therefore assigns it to an appropriate discrete code.
+This process is called **quantisation**.
 
 The difference between the actual analogue value and its digital representation is **quantisation error**.
 
@@ -229,7 +229,9 @@ $$
 $$
 
 !!! note
-    Computers do not normally convert a binary value into decimal before doing calculations with it. The binary representation **is the number internally**. Decimal notation is primarily a human-readable representation.
+    Computers do not normally convert a binary value into decimal before doing calculations with it.
+    The binary representation **is the number internally**.
+    Decimal notation is primarily a human-readable representation.
 
 ---
 
@@ -448,14 +450,13 @@ It only changes the representation used by the computer.
 
 !!! info "Important"
     **ADC bits = measurement resolution**
-
     **Storage bits = space allocated to represent the measurement**
-
     **Processing data type = representation used while performing calculations**
 
 Neuropixels raw data are commonly stored as **16-bit integers**, even though the effective/on-probe ADC resolution can be lower and depends on the Neuropixels generation and acquisition path.
 
-During analysis, software may convert the raw integer values to `float32` for filtering, scaling, whitening and other mathematical operations. This approximately doubles RAM requirements relative to `int16`, but it does **not** increase the precision of the original measurement.
+During analysis, software may convert the raw integer values to `float32` for filtering, scaling, whitening and other mathematical operations.
+This approximately doubles RAM requirements relative to `int16`, but it does **not** increase the precision of the original measurement.
 
 ---
 
@@ -481,11 +482,7 @@ possibly converted to float32 for analysis
 
 !!! abstract "Summary"
     **Sampling rate** tells us how finely we measure **time**.
-
     **ADC bit depth** tells us how finely we measure **amplitude**.
-
     **Nyquist** tells us the highest signal frequency that can be represented without aliasing.
-
     **Storage bit depth** tells us how much computer memory/disk space is allocated to each stored sample.
-
     These are related, but they are **not the same thing**.
