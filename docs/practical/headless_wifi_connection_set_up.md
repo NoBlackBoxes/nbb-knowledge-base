@@ -164,8 +164,10 @@ runcmd:
 ```
 
 
-!!! info "Important"
-     The first line **must** be exactly `#cloud-config` (no spaces before it). This is a special directive that tells cloud-init to process the file. Without it, cloud-init will ignore the configuration.
+!!! warning
+    The first line **must** be exactly `#cloud-config` (no spaces before it).
+    This is a special directive that tells cloud-init to process the file.
+    Without it, cloud-init will ignore the configuration.
 
 
 **Key settings explained:**

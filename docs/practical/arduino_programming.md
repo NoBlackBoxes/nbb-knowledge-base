@@ -24,8 +24,8 @@ Examples of what Arduino controls:
 - speakers
 - displays
 
->**Note:**  
->Unlike a normal computer program, an Arduino sketch runs in a **continuous loop on hardware**, not in an operating system.
+!!! note
+    Unlike a normal computer program, an Arduino sketch runs in a **continuous loop on hardware**, not in an operating system.
 
 ## 2. Structure of an Arduino Program
 
@@ -71,8 +71,7 @@ void loop() {
 }
 ```
 
->**Note:**  
->The Arduino doesn’t “exit” programs — it keeps executing `loop()` continuously.
+The Arduino doesn’t “exit” programs — it keeps executing `loop()` continuously.
 
 ## 3. Pin Control
 
@@ -112,8 +111,8 @@ Pauses execution.
 delay(1000); // milliseconds
 ```
 
->**Note:**  
->`delay()` blocks the program. Nothing else runs during this time.
+!!! note
+    `delay()` blocks the program. Nothing else runs during this time.
 
 ## 5. Variables
 
@@ -130,8 +129,7 @@ Common types:
 - `bool`
 - `char`
 
->**Note:**  
->Variables let you avoid repeating numbers and make code easier to change.
+Variables let you avoid repeating numbers and make code easier to change.
 
 ## 6. Conditionals
 
@@ -183,8 +181,8 @@ Range:
 0–255
 ```
 
->**Note:**  
->This is not true analog voltage — it’s **PWM (pulse-width modulation)**.
+!!! note
+    This is not true analog voltage — it’s **PWM (pulse-width modulation)**.
 
 ## 9. Serial Communication
 
@@ -195,8 +193,8 @@ Serial.begin(9600);
 Serial.println(sensorValue);
 ```
 
->**Note:**  
->Serial Monitor lets you see values while the program runs.
+!!! tip
+    Serial Monitor lets you see values while the program runs.
 
 ## 10. Typical Arduino Workflow
 
@@ -206,21 +204,21 @@ Serial.println(sensorValue);
 4. Test hardware
 5. Debug with Serial Monitor
 
-## Mental Model (Important)
+!!! tip "Mental model"
 
-Arduino programming is mostly:
+    Arduino programming is mostly:
 
-```
-READ → DECIDE → ACT
-```
+    ```
+    READ → DECIDE → ACT
+    ```
 
-Example:
+    Example:
 
-```
-read sensor
-if condition true
-turn on motor
-```
+    ```
+    read sensor
+    if condition true
+    turn on motor
+    ```
 
 ## Minimal Example Program
 

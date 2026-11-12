@@ -17,7 +17,8 @@ A guide for adding and managing multiple Wi-Fi connections (home Wi‑Fi, phone 
 
 ## 1. Prerequisites
 
-**Important:** For SSH to work, both the Raspberry Pi and your Windows laptop must be connected to the same Wi-Fi network (home Wi‑Fi or phone hotspot).
+!!! note
+    For SSH to work, both the Raspberry Pi and your Windows laptop must be connected to the same Wi-Fi network (home Wi‑Fi or phone hotspot).
 
 ## 2. Adding Wi‑Fi connections
 
@@ -49,7 +50,8 @@ sudo nmcli connection add \
   wifi-sec.psk "PASSWORD"
 ```
 
-**Note:** If you encounter connection issues, see **Section 6: Regulatory domain** - phone hotspots often require setting the regulatory domain first.
+!!! tip
+    If you encounter connection issues, see **Section 6: Regulatory domain** - phone hotspots often require setting the regulatory domain first.
 
 ### 2.2 Adding home Wi‑Fi
 
@@ -170,9 +172,10 @@ If connection fails:
 
 **SSH access limitation on eduroam**
 
-**Important:** Direct SSH from your laptop to the Raspberry Pi will **not work** when both devices are connected to eduroam, even if you know the Pi's IP address.
-
-**Why:** Eduroam uses **AP isolation** (also called client isolation), which blocks direct client-to-client communication. This is a security feature common on institutional networks that prevents devices on the same Wi‑Fi network from communicating directly with each other.
+!!! warning
+    Direct SSH from your laptop to the Raspberry Pi will **not work** when both devices are connected to eduroam, even if you know the Pi's IP address.
+    Eduroam uses **AP isolation** (also called client isolation), which blocks direct client-to-client communication.
+    This is a security feature common on institutional networks that prevents devices on the same Wi‑Fi network from communicating directly with each other.
 
 **Workaround: Use Pi Connect**
 
