@@ -21,6 +21,7 @@ The Arduino acts as a controller: two potentiometers control the paddles, while 
 - jumper wires
 - [Arduino IDE](https://www.arduino.cc/en/software)
 - [Processing](https://processing.org/download)
+- Minim audio library for Processing
 
 Download `TennisGame.zip` from the original guide before starting.[^original-guide]
 
@@ -81,13 +82,27 @@ Close the Serial Monitor before continuing so that Processing can use the serial
 
 ## 5. Configure and run the game
 
+The game uses the Minim audio library. If it is not already installed:
+
+1. In Processing, select **Sketch → Import Library → Manage Libraries**. In some versions, the final menu item is called **Add Library**.[^processing-libraries]
+2. Search for `Minim`.
+3. Select Minim and click **Install**.
+
+Without this library, Processing reports an error for the following import:
+
+```java
+import ddf.minim.*;
+```
+
+Once Minim is installed:
+
 1. Extract `TennisGame.zip`.
 2. Open the Tennis project in Processing.
 3. Find the line beginning with `String arduino =`.
 4. Replace its value with the Arduino's serial port, for example:
 
     ```java
-    String arduino = "/dev/cu.usbmodem1421";
+    String arduino = "/dev/ttyUSB0";
     ```
 
     On Windows, the value will normally look like `COM1` instead.
@@ -102,3 +117,4 @@ Close the Serial Monitor before continuing so that Processing can use the serial
 - **A paddle moves in the opposite direction:** swap that potentiometer's two outer connections.
 
 [^original-guide]: Digital Art and Technology, [*Getting Started With Arduino—Two Player Arduino Pong*](https://www.instructables.com/Getting-Started-With-Arduino-Two-Player-Arduino-Po/), Instructables, 2016.
+[^processing-libraries]: Processing Foundation, [*Environment: Adding Libraries, Tools, and Modes*](https://processing.org/environment/#adding-libraries-tools-and-modes).
