@@ -1,6 +1,6 @@
 # NBB Knowledge Base
 
-Course concepts and practical guides for No Black Boxes. The documentation is written in Markdown and built with [Zensical](https://zensical.org/).
+Course concepts, practical guides and demos for No Black Boxes. The documentation is written in Markdown and built with [Zensical](https://zensical.org/).
 
 ## Repository structure
 
@@ -10,6 +10,7 @@ Course concepts and practical guides for No Black Boxes. The documentation is wr
 ├── docs/                        # Documentation source files
 │   ├── assets/logo.png          # Site logo
 │   ├── concepts/                # Background and theory notes
+│   ├── demos/                   # Course demonstration guides
 │   ├── javascripts/
 │   │   └── mathjax.js           # Enables LaTeX rendering
 │   ├── practical/               # Setup and troubleshooting guides
@@ -25,7 +26,7 @@ Course concepts and practical guides for No Black Boxes. The documentation is wr
 
 ## Contribute
 
-- Add or edit pages under `docs/concepts/` or `docs/practical/`.
+- Add or edit pages under `docs/concepts/`, `docs/practical/` or `docs/demos/`.
 - Update `nav` in `zensical.toml` when adding a page.
 - To add an author, register their ID, display name, and external profile URL under `[project.extra.authors]` in `zensical.toml`, then use that ID in the page front matter (for example, `author: viktor`). The page template uses this entry for the linked byline.
 - Keep the source notes in the separate note vault unchanged unless you intend to edit them there too.

@@ -1,6 +1,6 @@
 # NBB Knowledge Base
 
-This knowledge base brings together background concepts and hands-on guides for the No Black Boxes course.
+This knowledge base brings together background concepts, hands-on guides and course demos for No Black Boxes.
 
 <div class="grid cards" markdown>
 
@@ -15,6 +15,12 @@ This knowledge base brings together background concepts and hands-on guides for 
     ---
 
     Step-by-step guidance for configuring, programming and troubleshooting course hardware and software.
+
+-   :lucide-play:{ .lg .middle } **[Demos](demos/index.md)**
+
+    ---
+
+    Instructions and supporting material for running course demonstrations.
 
 </div>
 

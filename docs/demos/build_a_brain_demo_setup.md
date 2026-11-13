@@ -5,6 +5,7 @@ tags:
   - course
   - nbb
   - raspberry-pi
+  - demo
 author: viktor
 ---
 

@@ -4,7 +4,7 @@
 # Zensical reads this file; `docs/` is the default Markdown source directory.
 [project]
 site_name = "NBB Knowledge Base"
-site_description = "Course concepts and practical guides for No Black Boxes"
+site_description = "Course concepts, practical guides, and demos for No Black Boxes"
 site_url = "https://noblackboxes.github.io/nbb-knowledge-base/"
 repo_url = "https://github.com/NoBlackBoxes/nbb-knowledge-base"
 repo_name = "NoBlackBoxes/nbb-knowledge-base"
@@ -33,11 +33,15 @@ nav = [
     { "Practicals" = "practical/index.md" },
     { "Arduino CLI on Raspberry Pi" = "practical/arduino_cli_on_rpi.md" },
     { "Arduino Programming" = "practical/arduino_programming.md" },
-    { "Build a Brain Demo Setup" = "practical/build_a_brain_demo_setup.md" },
     { "Flash the Prepared NB3 Image" = "practical/flashing_sd_cards_with_prepared_nb3_image.md" },
     { "Headless Wi-Fi Setup" = "practical/headless_wifi_connection_set_up.md" },
     { "Manage Multiple Wi-Fi Networks" = "practical/managing_multiple_wifi_networks.md" },
     { "Raspberry Pi No-Sound Troubleshooting" = "practical/rpi_no_sound_troubleshooting.md" },
+  ] },
+  { "Demos" = [
+    { "Demos" = "demos/index.md" },
+    { "Build a Brain Demo Setup" = "demos/build_a_brain_demo_setup.md" },
+    { "Arduino Ping-Pong" = "demos/arduino_pingpong.md" },
   ] },
 ]
 
@@ -45,7 +49,7 @@ nav = [
 name = "Viktor"
 url = "https://viktorpm.github.io/"
 
-# Generate scoped topic listings on the Concepts and Practicals index pages.
+# Generate scoped topic listings on the category index pages.
 [project.plugins.tags]
 tags = false
 
