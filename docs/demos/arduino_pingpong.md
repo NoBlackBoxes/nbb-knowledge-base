@@ -8,10 +8,11 @@ author: viktor
 
 # Arduino Ping-Pong
 
-!!! note
-    This is a baseline setup based on Digital Art and Technology's original two-player Arduino Pong guide.[^original-guide] Course-specific modifications can be added later.
+This guide follows Digital Art and Technology’s original two-player Arduino Pong project and describes a basic setup that can be adapted for course-specific demonstrations.[^original-guide]
 
-The Arduino acts as a controller: two potentiometers control the paddles, while the game runs on a computer in Processing.
+The Arduino acts as a controller: two potentiometers control the paddles, while
+the game runs on a computer using Processing, a free, open-source programming
+environment and language.[^processing]
 
 ## What you need
 
@@ -41,6 +42,8 @@ For each potentiometer:
 3. Connect the middle pin to an Arduino analogue input:
     - first potentiometer: `A1`
     - second potentiometer: `A0`
+
+![Arduino Ping-Pong controller wiring](../assets/img/arduino_pingpong_wiring.png)
 
 ## 3. Upload the controller sketch
 
@@ -76,9 +79,10 @@ See [Arduino Programming](../practical/arduino_programming.md) if you need a ref
 
 ## 4. Test the controls
 
-Open the Arduino IDE's Serial Monitor. It should display a stream of number pairs. Turn each potentiometer and confirm that the corresponding values change.
-
-Close the Serial Monitor before continuing so that Processing can use the serial port.
+Open the Arduino IDE's Serial Monitor. It should display a stream of number
+pairs. Turn each potentiometer and confirm that the corresponding values
+change. Close the Serial Monitor before continuing so that Processing can use
+the serial port.
 
 ## 5. Configure and run the game
 
@@ -117,4 +121,5 @@ Once Minim is installed:
 - **A paddle moves in the opposite direction:** swap that potentiometer's two outer connections.
 
 [^original-guide]: Digital Art and Technology, [*Getting Started With Arduino—Two Player Arduino Pong*](https://www.instructables.com/Getting-Started-With-Arduino-Two-Player-Arduino-Po/), Instructables, 2016.
+[^processing]: Processing Foundation, [*Processing*](https://processing.org/).
 [^processing-libraries]: Processing Foundation, [*Environment: Adding Libraries, Tools, and Modes*](https://processing.org/environment/#adding-libraries-tools-and-modes).
