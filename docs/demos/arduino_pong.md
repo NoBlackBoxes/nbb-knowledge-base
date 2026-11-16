@@ -1,12 +1,12 @@
 ---
-title: Arduino Ping-Pong
+title: Arduino Pong
 tags:
   - arduino
   - demo
 author: viktor
 ---
 
-# Arduino Ping-Pong
+# Arduino Pong
 
 This guide follows Digital Art and Technology’s original two-player Arduino Pong project and describes a basic setup that can be adapted for course-specific demonstrations.[^original-guide]
 
@@ -43,7 +43,7 @@ For each potentiometer:
     - first potentiometer: `A1`
     - second potentiometer: `A0`
 
-![Arduino Ping-Pong controller wiring](../assets/img/arduino_pingpong_wiring.png)
+![Arduino Pong controller wiring](../assets/img/arduino_pong_wiring.png)
 
 ## 3. Upload the controller sketch
 
