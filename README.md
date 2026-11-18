@@ -29,11 +29,18 @@ Course concepts, practical guides and demos for No Black Boxes. The documentatio
 - Add or edit pages under `docs/concepts/`, `docs/practical/` or `docs/demos/`.
 - Update `nav` in `zensical.toml` when adding a page.
 - To add an author, register their ID, display name, and external profile URL under `[project.extra.authors]` in `zensical.toml`, then use that ID in the page front matter (for example, `author: viktor`). The page template uses this entry for the linked byline.
-- Keep the source notes in the separate note vault unchanged unless you intend to edit them there too.
 
-## Local preview and build
+### 1. Clone the repository and create a branch
 
-Create and activate a Python virtual environment, then install Zensical:
+```bash
+git clone https://github.com/NoBlackBoxes/nbb-knowledge-base.git
+cd nbb-knowledge-base
+git switch -c short-description-of-change
+```
+
+### 2. Preview locally
+
+Create a Python virtual environment and install Zensical:
 
 ```bash
 python3 -m venv .venv
@@ -41,15 +48,26 @@ source .venv/bin/activate
 python -m pip install zensical
 ```
 
-Preview the site at <http://127.0.0.1:8000/> or build it to `site/`:
+Serve the site at <http://127.0.0.1:8000/> or build it to `site/`:
 
 ```bash
 zensical serve
 zensical build --clean
 ```
 
-`site/` is generated output; edit the Markdown and configuration, not the built files.
+`site/` is generated output and should not be edited or committed.
 
-## GitHub Pages
+### 3. Submit changes
 
-The workflow in `.github/workflows/docs.yml` builds and deploys on pushes to `main` or `master`. In the repository's Pages settings, choose **GitHub Actions** as the deployment source. Set `site_url` in `zensical.toml` to the actual published URL before deployment.
+```bash
+git add path/to/changed-file.md
+git commit -m "Describe the change"
+git push -u origin short-description-of-change
+```
+
+Open a pull request on GitHub from your branch into `main`.
+The protected `main` branch requires changes to be reviewed before they are merged.
+
+## Deployment
+
+Merges to `main` automatically build and deploy the site through GitHub Pages.
