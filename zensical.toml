@@ -42,6 +42,7 @@ nav = [
     { "Demos" = "demos/index.md" },
     { "Build a Brain Demo Setup" = "demos/build_a_brain_demo_setup.md" },
     { "Arduino Pong" = "demos/arduino_pong.md" },
+    { "GIF London 2026 link collection" = "demos/gif_london_2026_link_collection.md" },
   ] },
 ]
 
