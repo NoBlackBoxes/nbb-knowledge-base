@@ -2,7 +2,7 @@
 
 This knowledge base brings together background concepts, hands-on guides and course demos for No Black Boxes.
 
-<div class="grid cards" markdown>
+<div class="grid cards home-cards" markdown>
 
 -   :lucide-book-open:{ .lg .middle } **[Concepts](concepts/index.md)**
 
