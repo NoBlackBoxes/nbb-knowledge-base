@@ -44,6 +44,13 @@ nav = [
     { "Arduino Pong" = "demos/arduino_pong.md" },
     { "GIF London 2026 link collection" = "demos/gif_london_2026_link_collection.md" },
   ] },
+    { "Hardware demo setups" = [
+    { "Arduino setup" = "demos/arduino/setup.md" },
+    { "Arduino analog sensor" = "demos/arduino/sensors/analog/wiring.md" },
+    { "Arduino digital sensor" = "demos/arduino/sensors/digital/wiring.md" },
+    { "Arduino joystick" = "demos/arduino/joystick/wiring.md" },
+    { "Digilent EMG" = "demos/digilent/emg/wiring.md" },  
+  ] },
 ]
 
 [project.extra.authors.viktor]

@@ -1,3 +1,10 @@
+---
+title: Arduino analog input — light sensor
+tags:
+  - arduino
+  - demo
+---
+
 # Arduino analog input — light sensor
 
 **Game:** [Flex Run](../../../flex-run.html).

@@ -1,3 +1,10 @@
+---
+title: Arduino joystick input
+tags:
+  - arduino
+  - demo
+---
+
 # Arduino joystick input
 
 **Game:** [Snake](https://playsnake.org/#google_vignette). The joystick sends arrow-key commands to steer the snake.

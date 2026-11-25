@@ -1,3 +1,10 @@
+---
+title: Arduino digital input — magnetic sensor
+tags:
+  - arduino
+  - demo
+---
+
 # Arduino digital input — magnetic sensor
 
 **Game:** [Flex Run](../../../flex-run.html).

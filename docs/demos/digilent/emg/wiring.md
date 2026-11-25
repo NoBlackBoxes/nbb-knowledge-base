@@ -1,3 +1,10 @@
+---
+title: Digilent EMG input
+tags:
+  - emg
+  - demo
+---
+
 # Digilent EMG input
 
 **Game:** [Flex Run](../../flex-run.html).

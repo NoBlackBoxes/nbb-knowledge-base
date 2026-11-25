@@ -1,3 +1,10 @@
+---
+title: Arduino Nano on Chromebook
+tags:
+  - arduino
+  - demo
+---
+
 # Arduino Nano on Chromebook
 
 **Hardware:** Arduino Nano (ATmega328P), USB data cable, Chromebook running Chrome.
