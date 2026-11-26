@@ -3,13 +3,14 @@ title: Arduino Nano on Chromebook
 tags:
   - arduino
   - demo
+author: quentin
 ---
 
 # Arduino Nano on Chromebook
 
 **Hardware:** Arduino Nano (ATmega328P), USB data cable, Chromebook running Chrome.
 
-1. Enable **Linux development environment** in Chromebook Settings and install the Arduino IDE in Linux.
+1. Enable **Linux development environment** in Chromebook Settings and [install the legacy Arduino IDE](#install-the-legacy-arduino-ide) in Linux.
 2. Plug in the Nano. Under **Linux development environment → Manage USB devices**, share its USB serial device with Linux (often FT232R/CH340).
 3. In Arduino IDE, select **Board: Arduino Nano**, **Processor: ATmega328P**, and the detected serial port. If upload fails on a clone, try **ATmega328P (Old Bootloader)**.
 4. **Wire and upload:** Choose **one** guide: [Analog](sensors/analog/wiring.md), [Digital](sensors/digital/wiring.md), or [Joystick](joystick/wiring.md). Complete its wiring and sketch upload, then return here for **Test serial output**.
@@ -18,3 +19,26 @@ tags:
 7. **Play:** Follow the game instructions for your hardware: [Analog → Flex Run](sensors/analog/wiring.md#play-flex-run), [Digital → Flex Run](sensors/digital/wiring.md#play-flex-run), or [Joystick → Snake](joystick/wiring.md#play-snake).
 
 If Chrome cannot see the Nano, confirm nothing else owns its serial port and Linux sharing is off. Only one application can use the port at a time.
+
+## Install the legacy Arduino IDE
+
+Run this script in the Chromebook's Linux terminal to install Arduino IDE 1.8.19, the legacy version used for these demos.
+
+```bash
+# Detect architecture and download the appropriate Arduino IDE
+ARCH=$(dpkg --print-architecture)
+
+case "$ARCH" in
+    amd64)  PLATFORM="linux64" ;;
+    arm64)  PLATFORM="linuxaarch64" ;;
+    armhf)  PLATFORM="linuxarm" ;;
+    i386)   PLATFORM="linux32" ;;
+    *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
+esac
+
+# Download, extract and install Arduino IDE 1.8.19
+wget "https://downloads.arduino.cc/arduino-1.8.19-${PLATFORM}.tar.xz" -O arduino-1.8.19.tar.xz &&
+tar -xf arduino-1.8.19.tar.xz &&
+cd arduino-1.8.19 &&
+sudo ./install.sh
+```

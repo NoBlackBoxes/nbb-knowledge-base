@@ -3,6 +3,7 @@ title: Arduino joystick input
 tags:
   - arduino
   - demo
+author: quentin
 ---
 
 # Arduino joystick input

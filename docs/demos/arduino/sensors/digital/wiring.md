@@ -3,6 +3,7 @@ title: Arduino digital input — magnetic sensor
 tags:
   - arduino
   - demo
+author: quentin
 ---
 
 # Arduino digital input — magnetic sensor

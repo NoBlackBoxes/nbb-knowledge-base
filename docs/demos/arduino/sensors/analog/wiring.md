@@ -3,6 +3,7 @@ title: Arduino analog input — light sensor
 tags:
   - arduino
   - demo
+author: quentin
 ---
 
 # Arduino analog input — light sensor

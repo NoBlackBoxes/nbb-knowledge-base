@@ -3,6 +3,7 @@ title: Digilent EMG input
 tags:
   - emg
   - demo
+author: quentin
 ---
 
 # Digilent EMG input

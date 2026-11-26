@@ -43,7 +43,7 @@ For each potentiometer:
     - first potentiometer: `A1`
     - second potentiometer: `A0`
 
-![Arduino Pong controller wiring](../assets/img/arduino_pong_wiring.png)
+![Arduino Pong controller wiring](wiring.png)
 
 ## 3. Upload the controller sketch
 
@@ -75,7 +75,7 @@ This is the `TennisController.ino` sketch supplied with the original guide.[^ori
 2. Upload the sketch to the Arduino.
 3. Make a note of the selected serial port; the Processing game needs the same value.
 
-See [Arduino Programming](../practical/arduino_programming.md) if you need a refresher on sketches and analogue input.
+See [Arduino Programming](../../../practical/arduino_programming.md) if you need a refresher on sketches and analogue input.
 
 ## 4. Test the controls
 

@@ -41,21 +41,25 @@ nav = [
   { "Demos" = [
     { "Demos" = "demos/index.md" },
     { "Build a Brain Demo Setup" = "demos/build_a_brain_demo_setup.md" },
-    { "Arduino Pong" = "demos/arduino_pong.md" },
+    { "Interactive hardware demos" = [
+      { "Arduino Nano on Chromebook" = "demos/arduino/setup.md" },
+      { "Arduino Pong" = "demos/arduino/pong/guide.md" },
+      { "Flex Run — analog sensor" = "demos/arduino/sensors/analog/wiring.md" },
+      { "Flex Run — digital sensor" = "demos/arduino/sensors/digital/wiring.md" },
+      { "Flex Run — Digilent EMG" = "demos/digilent/emg/wiring.md" },
+      { "Snake — Arduino joystick" = "demos/arduino/joystick/wiring.md" },
+    ] },
     { "GIF London 2026 link collection" = "demos/gif_london_2026_link_collection.md" },
-  ] },
-    { "Hardware demo setups" = [
-    { "Arduino setup" = "demos/arduino/setup.md" },
-    { "Arduino analog sensor" = "demos/arduino/sensors/analog/wiring.md" },
-    { "Arduino digital sensor" = "demos/arduino/sensors/digital/wiring.md" },
-    { "Arduino joystick" = "demos/arduino/joystick/wiring.md" },
-    { "Digilent EMG" = "demos/digilent/emg/wiring.md" },  
   ] },
 ]
 
 [project.extra.authors.viktor]
 name = "Viktor"
 url = "https://viktorpm.github.io/"
+
+[project.extra.authors.quentin]
+name = "Quentin"
+url = "https://github.com/QuentinPM"
 
 # Generate scoped topic listings on the category index pages.
 [project.plugins.tags]
