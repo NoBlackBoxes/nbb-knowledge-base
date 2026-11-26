@@ -31,12 +31,12 @@ docs/demos/
 ├── index.md
 ├── build_a_brain_demo_setup.md
 ├── flex-run.html
-├── gif_london_2026_link_collection.md
 ├── arduino/
 │   ├── setup.md
 │   ├── joystick/
 │   │   ├── client.js
 │   │   ├── joystick.ino
+│   │   ├── snake.html
 │   │   ├── wiring.md
 │   │   └── wiring.png
 │   ├── pong/
@@ -62,7 +62,7 @@ docs/demos/
         └── wiring_close_up.png
 ```
 
-Analog and digital sensors share a JavaScript client for Flex Run. EMG has its own Flex Run client. The joystick client sends arrow-key commands to Snake.
+Analog and digital sensors share a JavaScript client for Flex Run. EMG has its own Flex Run client. Snake reads joystick direction commands through Web Serial and uses the same steering logic as keyboard controls.
 
 Each Arduino sketch is in its own matching sketch directory. Switching input modes in Flex Run reloads the page.
 

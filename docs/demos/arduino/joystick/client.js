@@ -1,94 +1,75 @@
 (() => {
-  document.getElementById("nano-snake-connect")?.remove();
-
-  const button = document.createElement("button");
-  button.id = "nano-snake-connect";
-  button.textContent = "CONNECT JOYSTICK";
-
-  Object.assign(button.style, {
-    position: "fixed",
-    top: "15px",
-    left: "15px",
-    zIndex: "999999",
-    padding: "12px 16px",
-    background: "#267a45",
-    color: "white",
-    border: "0",
-    borderRadius: "6px",
-    cursor: "pointer"
-  });
-
-  document.body.appendChild(button);
-
-  const keys = {
-    UP:    { key: "ArrowUp",    code: "ArrowUp",    keyCode: 38 },
-    DOWN:  { key: "ArrowDown",  code: "ArrowDown",  keyCode: 40 },
-    LEFT:  { key: "ArrowLeft",  code: "ArrowLeft",  keyCode: 37 },
-    RIGHT: { key: "ArrowRight", code: "ArrowRight", keyCode: 39 }
+  const input = document.getElementById("input-mode");
+  const connect = document.getElementById("connect-joystick");
+  const status = document.getElementById("input-status");
+  const directions = {
+    UP: [0, -1],
+    DOWN: [0, 1],
+    LEFT: [-1, 0],
+    RIGHT: [1, 0],
   };
+  let reader;
+  const usingJoystick = () => input.value === "joystick";
 
-  function pressArrow(direction) {
-    const k = keys[direction];
-    if (!k) return;
+  function updateInputMode() {
+    connect.hidden = !usingJoystick();
+    if (connect.hidden) {
+      status.textContent = "";
+      reader?.cancel().catch(error => console.error(error));
+    }
+  }
+  input.addEventListener("change", updateInputMode);
+  updateInputMode();
 
-    const target =
-      document.querySelector("canvas") ||
-      (document.activeElement !== document.body
-        ? document.activeElement
-        : document);
-
-    for (const type of ["keydown", "keyup"]) {
-      const event = new KeyboardEvent(type, {
-        key: k.key,
-        code: k.code,
-        bubbles: true,
-        cancelable: true
-      });
-
-      Object.defineProperty(event, "keyCode", { value: k.keyCode });
-      Object.defineProperty(event, "which", { value: k.keyCode });
-      target.dispatchEvent(event);
+  connect.addEventListener("click", async () => {
+    if (!navigator.serial) {
+      status.textContent = "Joystick mode requires Web Serial. Try Chrome or Edge.";
+      return;
     }
 
-    console.log("Joystick:", direction);
-  }
-
-  button.onclick = async () => {
+    connect.disabled = true;
+    status.textContent = "Select the Arduino Nano's serial port.";
+    let port;
+    let opened = false;
+    let message = "Joystick disconnected. Connect again.";
     try {
-      if (!("serial" in navigator)) {
-        throw new Error("Web Serial is unavailable. Use Chrome or Edge on the game page.");
-      }
-
-      const port = await navigator.serial.requestPort();
+      port = await navigator.serial.requestPort();
+      if (!usingJoystick()) return;
       await port.open({ baudRate: 9600 });
+      opened = true;
+      if (!usingJoystick()) return;
 
-      button.textContent = "JOYSTICK CONNECTED";
-      button.style.background = "#2563eb";
-
-      const decoder = new TextDecoderStream();
-      const readableClosed = port.readable.pipeTo(decoder.writable);
-      const reader = decoder.readable.getReader();
-
+      reader = port.readable.getReader();
+      status.textContent = "Joystick connected.";
+      const decoder = new TextDecoder();
       let buffer = "";
 
       while (true) {
         const { value, done } = await reader.read();
-        if (done) break;
+        if (done || !usingJoystick()) break;
 
-        buffer += value;
-        const lines = buffer.split(/\r?\n/);
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
         buffer = lines.pop();
 
         for (const line of lines) {
-          pressArrow(line.trim().toUpperCase());
+          const direction = directions[line.trim().toUpperCase()];
+          if (direction) steer(...direction);
         }
       }
-
-      await readableClosed;
     } catch (error) {
-      console.error(error);
-      button.textContent = "CONNECTION FAILED — CHECK CONSOLE";
-      button.style.background = "#b42318";
+      if (!opened && error.name === "NotFoundError") {
+        message = "No joystick selected.";
+      } else {
+        console.error(error);
+        if (!opened) message = "Could not connect. Close the Serial Monitor and try again.";
+      }
+    } finally {
+      reader?.releaseLock();
+      reader = undefined;
+      if (opened) await port.close().catch(error => console.error(error));
+      connect.disabled = false;
+      if (usingJoystick()) status.textContent = message;
     }
-  };
+  });
 })();

@@ -49,7 +49,6 @@ nav = [
       { "Flex Run — Digilent EMG" = "demos/digilent/emg/wiring.md" },
       { "Snake — Arduino joystick" = "demos/arduino/joystick/wiring.md" },
     ] },
-    { "GIF London 2026 link collection" = "demos/gif_london_2026_link_collection.md" },
   ] },
 ]
 

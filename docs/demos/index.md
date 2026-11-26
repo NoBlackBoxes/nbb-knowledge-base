@@ -16,7 +16,7 @@ To play with hardware, choose an input from the table below and follow its setup
 | --- | --- | --- | --- |
 | Arduino | Analog sensor (light sensor example) | [Flex Run](flex-run.html) | [Analog wiring and sketch](arduino/sensors/analog/wiring.md) |
 | Arduino | Digital sensor (magnetic sensor) | [Flex Run](flex-run.html) | [Digital wiring and sketch](arduino/sensors/digital/wiring.md) |
-| Arduino | Joystick | [Snake](https://playsnake.org/#google_vignette) | [Joystick wiring and sketch](arduino/joystick/wiring.md) |
+| Arduino | Joystick | [Snake](arduino/joystick/snake.html) | [Joystick wiring and sketch](arduino/joystick/wiring.md) |
 | Digilent | EMG | [Flex Run](flex-run.html) | [EMG wiring and acquisition](digilent/emg/wiring.md) |
 
 Arduino demos require an Arduino Nano, Arduino IDE and Chrome. For Chromebook-specific instructions, see [Arduino setup](arduino/setup.md). The EMG demo uses a Digilent Analog Discovery Studio, EMG Click, WaveForms SDK and Python on macOS; follow the safety and setup requirements in the EMG guide before connecting electrodes to a person.

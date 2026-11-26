@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Snake</title>
+<style>
+  :root { color-scheme: light; --lcd: #a8ca65; --ink: #293517; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 18px; background: var(--lcd); color: var(--ink); font-family: monospace; }
+  main { width: min(100%, 720px, calc((100dvh - 96px) * 1.25)); }
+  .input-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+  .input-bar select, .input-bar button { border: 1px solid var(--ink); background: var(--lcd); color: var(--ink); padding: 6px; font: inherit; }
+  .input-bar button:disabled { cursor: default; opacity: .55; }
+  .board { position: relative; width: 100%; aspect-ratio: 5 / 4; border: 4px solid var(--ink); background: var(--lcd); box-shadow: inset 0 0 35px #6b8b4230; overflow: hidden; touch-action: none; }
+  canvas { width: 100%; height: 100%; display: block; }
+  .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--lcd); gap: 6%; padding: 4%; }
+  [hidden] { display: none !important; }
+  h1, h2, p { margin: 0; font-weight: normal; }
+  .logo { width: 52%; }
+  .prompt { width: 32%; }
+  .options { display: flex; align-items: center; justify-content: space-evenly; width: 90%; gap: 5%; }
+  button { border: 0; background: transparent; color: var(--ink); cursor: pointer; padding: 10px 5px; font: inherit; }
+  button:hover, button:focus-visible { opacity: .55; }
+  button:focus-visible { outline: 2px dashed var(--ink); outline-offset: 3px; }
+  .options button { width: 29%; }
+  .options button:first-child { width: 20%; }
+  .options button:nth-child(2) { width: 20%; }
+  .pixel svg { display: block; width: 100%; height: auto; fill: currentColor; }
+  footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 2px 0; min-height: 30px; }
+  footer .pixel { height: clamp(15px, 3.3vw, 27px); }
+  footer .pixel svg { width: auto; height: 100%; }
+  .over-title { width: 55%; }
+  .over-title.best { width: 62%; }
+  .over-score { width: 18%; text-align: center; }
+  .over-score svg { max-height: 60px; }
+  .again { width: 33%; }
+  .menu-button { width: 32%; }
+  .over { background: #a8ca65ed; }
+  .sr { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
+  @media (max-width: 480px) { body { padding: 10px; } .board { border-width: 3px; } main { width: 100%; max-width: calc((100dvh - 86px) * 1.18); } }
+</style>
+</head>
+<body>
+<main aria-label="Snake game">
+  <div class="input-bar">
+    <label for="input-mode">Input</label>
+    <select id="input-mode">
+      <option value="keyboard">Keyboard</option>
+      <option value="joystick">Joystick</option>
+    </select>
+    <button type="button" id="connect-joystick" hidden>Connect Joystick</button>
+    <p id="input-status" role="status"></p>
+  </div>
+  <div class="board" id="board">
+    <canvas id="game" width="720" height="576" aria-label="Snake playing field"></canvas>
+    <section class="overlay" id="menu" aria-label="Choose difficulty">
+      <h1 class="pixel logo" data-pixel="SNAKE" aria-label="Snake"></h1>
+      <p class="pixel prompt" data-pixel="CHOOSE LEVEL:" aria-label="Choose level"></p>
+      <div class="options">
+        <button class="pixel" data-pixel="SLUG" data-level="Slug" aria-label="Slug — easy"></button>
+        <button class="pixel" data-pixel="WORM" data-level="Worm" aria-label="Worm — medium"></button>
+        <button class="pixel" data-pixel="PYTHON" data-level="Python" aria-label="Python — hard"></button>
+      </div>
+    </section>
+    <section class="overlay over" id="result" hidden aria-label="Game result">
+      <h2 id="resultTitle" class="pixel over-title" data-pixel="GAME OVER!" aria-label="Game over"></h2>
+      <p id="resultScore" class="pixel over-score" data-pixel="0" aria-label="Score 0"></p>
+      <button id="again" class="pixel again" data-pixel="PLAY AGAIN" aria-label="Play again"></button>
+      <button id="choose" class="pixel menu-button" data-pixel="NEW GAME" aria-label="Choose level"></button>
+    </section>
+  </div>
+  <footer id="status" hidden>
+    <span class="pixel" id="score" data-pixel="0" aria-label="Score 0"></span>
+    <span class="pixel" id="best" data-pixel="SLUG 0" aria-label="Slug best score 0"></span>
+  </footer>
+  <p class="sr">In Keyboard mode, use the arrow keys or W A S D to steer. On a touch screen, swipe or tap in the direction you want to move. In Joystick mode, use Connect Joystick to connect your Arduino. Escape returns to the level menu.</p>
+</main>
+<script>
+'use strict';
+// A small original bitmap alphabet, rendered as inline SVG. No web fonts.
+const glyphs = {
+ A:['01110','11011','11011','11111','11011','11011','11011'], B:['11110','11011','11011','11110','11011','11011','11110'],
+ C:['01111','11000','11000','11000','11000','11000','01111'], D:['11110','11011','11011','11011','11011','11011','11110'],
+ E:['11111','11000','11000','11110','11000','11000','11111'], F:['11111','11000','11000','11110','11000','11000','11000'],
+ G:['01111','11000','11000','11011','11011','11011','01111'], H:['11011','11011','11011','11111','11011','11011','11011'],
+ I:['111','010','010','010','010','010','111'], J:['00111','00011','00011','00011','11011','11011','01110'],
+ K:['11011','11011','11110','11100','11110','11011','11011'], L:['11000','11000','11000','11000','11000','11000','11111'],
+ M:['10001','11011','11111','10101','10001','10001','10001'], N:['11001','11001','11101','11111','11011','11011','11001'],
+ O:['01110','11011','11011','11011','11011','11011','01110'], P:['11110','11011','11011','11110','11000','11000','11000'],
+ Q:['01110','11011','11011','11011','11011','11110','00111'], R:['11110','11011','11011','11110','11100','11010','11011'],
+ S:['01111','11000','11000','01110','00011','00011','11110'], T:['11111','00100','00100','00100','00100','00100','00100'],
+ U:['11011','11011','11011','11011','11011','11011','01110'], V:['11011','11011','11011','11011','11011','01010','00100'],
+ W:['10001','10001','10001','10101','11111','11011','10001'], X:['11011','11011','01010','00100','01010','11011','11011'],
+ Y:['11011','11011','01010','00100','00100','00100','00100'], Z:['11111','00011','00110','01100','11000','11000','11111'],
+ 0:['01110','11011','11011','11011','11011','11011','01110'], 1:['010','110','010','010','010','010','111'],
+ 2:['01110','11011','00011','00110','01100','11000','11111'], 3:['11110','00011','00011','01110','00011','00011','11110'],
+ 4:['11011','11011','11011','11111','00011','00011','00011'], 5:['11111','11000','11000','11110','00011','00011','11110'],
+ 6:['01110','11000','11000','11110','11011','11011','01110'], 7:['11111','00011','00011','00110','01100','01100','01100'],
+ 8:['01110','11011','11011','01110','11011','11011','01110'], 9:['01110','11011','11011','01111','00011','00011','01110'],
+ ':':['0','1','1','0','1','1','0'], '!':['11','11','11','11','11','00','11'], ' ':['000','000','000','000','000','000','000']
+};
+function pixelText(el, value) {
+  let x = 0, path = '';
+  for (const ch of String(value).toUpperCase()) {
+    const g = glyphs[ch] || glyphs[' '];
+    g.forEach((row,y) => [...row].forEach((p,i) => { if(p==='1') path += `M${x+i} ${y}h1v1h-1z`; }));
+    x += g[0].length + 1;
+  }
+  el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${Math.max(1,x-1)} 7" aria-hidden="true" shape-rendering="crispEdges"><path d="${path}"/></svg>`;
+}
+document.querySelectorAll('[data-pixel]').forEach(el => pixelText(el, el.dataset.pixel));
+
+// All game mechanics and settings are local to this file.
+const LEVELS = { Slug: { delay: 180, points: 5 }, Worm: { delay: 115, points: 10 }, Python: { delay: 70, points: 15 } };
+const COLS=25, ROWS=20, CELL=28.8;
+const INK='#293517', LCD='#a8ca65';
+const canvas=document.getElementById('game'), ctx=canvas.getContext('2d');
+const inputMode=document.getElementById('input-mode');
+const menu=document.getElementById('menu'), result=document.getElementById('result'), status=document.getElementById('status');
+const scoreEl=document.getElementById('score'), bestEl=document.getElementById('best');
+let mode='Slug', state='menu', snake=[], food=null, dir={x:1,y:0}, queue=[], score=0, best=0, timer=null;
+const same=(a,b)=>a.x===b.x && a.y===b.y;
+function loadBest() { try { return Math.max(0, Number(localStorage.getItem('retro-snake-best-'+mode)) || 0); } catch { return 0; } }
+function saveBest() { try { localStorage.setItem('retro-snake-best-'+mode, String(best)); } catch {} }
+function updateScore() {
+  pixelText(scoreEl,score); scoreEl.setAttribute('aria-label','Score '+score);
+  pixelText(bestEl,mode+' '+best); bestEl.setAttribute('aria-label',mode+' best score '+best);
+}
+function chooseFood() {
+  const free=[];
+  for(let y=0;y<ROWS;y++) for(let x=0;x<COLS;x++) if(!snake.some(p=>p.x===x&&p.y===y)) free.push({x,y});
+  return free.length ? free[Math.floor(Math.random()*free.length)] : null;
+}
+function rounded(x,y,w,h,r) {
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); ctx.fill();
+}
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle=INK;
+  snake.forEach(p=>rounded(p.x*CELL+.45,p.y*CELL+.45,CELL-.9,CELL-.9,CELL*.29));
+  if(food) {
+    ctx.save(); ctx.translate((food.x+.5)*CELL,(food.y+.5)*CELL); ctx.rotate(Math.PI/7);
+    const s=CELL*.76, a=s*.43;
+    rounded(-s/2,-a/2,s,a,a*.24); rounded(-a/2,-s/2,a,s,a*.24);
+    ctx.fillStyle=LCD; ctx.beginPath(); ctx.arc(0,0,s*.12,0,Math.PI*2); ctx.fill(); ctx.restore();
+  }
+}
+function start(level) {
+  clearTimeout(timer); mode=level; state='playing'; score=0; best=loadBest(); queue=[]; dir={x:1,y:0};
+  const x=Math.floor(COLS/2), y=Math.floor(ROWS/2);
+  snake=[{x,y},{x:x-1,y},{x:x-2,y}]; food=chooseFood();
+  menu.hidden=true; result.hidden=true; status.hidden=false; document.activeElement?.blur();
+  updateScore(); draw(); timer=setTimeout(step,LEVELS[mode].delay);
+}
+function finish(won=false) {
+  clearTimeout(timer); state='over';
+  const record=score>best;
+  if(record) { best=score; saveBest(); updateScore(); }
+  const title=won?'YOU WIN!':record?'BEST SCORE!':'GAME OVER!';
+  const titleEl=document.getElementById('resultTitle'), val=document.getElementById('resultScore');
+  titleEl.classList.toggle('best',record); pixelText(titleEl,title); titleEl.setAttribute('aria-label',title);
+  pixelText(val,score); val.setAttribute('aria-label','Score '+score); result.hidden=false;
+}
+function step() {
+  if(state!=='playing') return;
+  if(queue.length) dir=queue.shift();
+  const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+  const eats=food && same(head,food);
+  const body=eats ? snake : snake.slice(0,-1);
+  if(head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||body.some(p=>same(p,head))) { finish(); return; }
+  snake.unshift(head);
+  if(eats) { score+=LEVELS[mode].points; food=chooseFood(); updateScore(); }
+  else snake.pop();
+  draw();
+  if(!food) { finish(true); return; }
+  timer=setTimeout(step,LEVELS[mode].delay);
+}
+function steer(x,y) {
+  if(state!=='playing') return;
+  const last=queue.length ? queue[queue.length-1] : dir;
+  if((last.x===x&&last.y===y)||(last.x===-x&&last.y===-y)||queue.length>=2) return;
+  queue.push({x,y});
+}
+function showMenu() { clearTimeout(timer); state='menu'; result.hidden=true; menu.hidden=false; status.hidden=true; }
+const keys={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
+window.addEventListener('keydown',e=>{
+  if(e.target===inputMode) return;
+  const key=e.key.length===1?e.key.toLowerCase():e.key;
+  if(keys[key]&&state==='playing') {
+    e.preventDefault();
+    if(inputMode.value==='keyboard') steer(...keys[key]);
+  }
+  else if(key==='Escape') { e.preventDefault(); showMenu(); }
+  else if(state==='over' && (key==='Enter'||key===' ') && !e.repeat && document.activeElement?.tagName!=='BUTTON') { e.preventDefault(); start(mode); }
+  else if(state==='menu' && ['1','2','3'].includes(key)) start(Object.keys(LEVELS)[Number(key)-1]);
+});
+menu.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>start(b.dataset.level)));
+document.getElementById('again').addEventListener('click',()=>start(mode));
+document.getElementById('choose').addEventListener('click',showMenu);
+let pointer=null;
+canvas.addEventListener('pointerdown',e=>{ if(state==='playing'&&inputMode.value==='keyboard') { pointer={x:e.clientX,y:e.clientY}; canvas.setPointerCapture(e.pointerId); } });
+canvas.addEventListener('pointerup',e=>{
+  if(!pointer||state!=='playing'||inputMode.value!=='keyboard') { pointer=null; return; }
+  let dx=e.clientX-pointer.x, dy=e.clientY-pointer.y; pointer=null;
+  if(Math.hypot(dx,dy)<12) { const r=canvas.getBoundingClientRect(); dx=(e.clientX-r.left)/r.width*COLS-(snake[0].x+.5); dy=(e.clientY-r.top)/r.height*ROWS-(snake[0].y+.5); }
+  if(Math.abs(dx)>Math.abs(dy)) steer(Math.sign(dx),0); else if(dy) steer(0,Math.sign(dy));
+});
+canvas.addEventListener('pointercancel',()=>{pointer=null;});
+</script>
+<script src="client.js"></script>
+</body>
+</html>
